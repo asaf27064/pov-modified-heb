@@ -1,4 +1,4 @@
 {
-    "version": "1.0.0",
-    "changelog": "Initial Hebrew subtitles support for FenLight"
+    "version": "1.0.6",
+    "changelog": "Simplified subtitle matching to Twilight-style algorithm - faster and more consistent results"
 }
