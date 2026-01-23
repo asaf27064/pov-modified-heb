@@ -1,4 +1,4 @@
 {
-    "version": "1.0.8",
-    "changelog": "All modules now use requests consistently"
+    "version": "1.0.9",
+    "changelog": "Fixed Hebrew synopsis for TV episodes (season_episodes_details)"
 }
