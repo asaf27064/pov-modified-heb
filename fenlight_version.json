@@ -1,4 +1,4 @@
 {
-    "version": "1.0.6",
-    "changelog": "Simplified subtitle matching to Twilight-style algorithm - faster and more consistent results"
+    "version": "1.0.7",
+    "changelog": "fix wizdom url again"
 }
