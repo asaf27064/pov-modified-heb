@@ -1,4 +1,4 @@
 {
-    "version": "1.0.7",
-    "changelog": "fix wizdom url again"
+    "version": "1.0.8",
+    "changelog": "All modules now use requests consistently"
 }
