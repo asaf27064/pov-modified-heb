@@ -1,4 +1,4 @@
 {
-    "version": "1.1.1",
-    "changelog": "added folder in fenlight with services for arctic fuse skin and message for remaning subscription real debrid"
+    "version": "1.1.2",
+    "changelog": "added logos hebrew support tmdb and fix tmdb fetch issues"
 }
