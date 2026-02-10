@@ -1,5 +1,5 @@
 {
-    "version": "1.0.2",
-    "changelog": "fixing Hebrew support for Arctic Fuse 3",
+    "version": "1.0.3",
+    "changelog": "added support for omdb ratings from fenlight lists fetching",
     "skin_version": "3.x"
 }
