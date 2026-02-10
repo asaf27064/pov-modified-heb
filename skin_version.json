@@ -1,5 +1,5 @@
 {
-    "version": "1.0.3",
-    "changelog": "added support for omdb ratings from fenlight lists fetching",
+    "version": "1.0.4",
+    "changelog": "added darksubs window button in subtitle choice menu for arctic fuse 3",
     "skin_version": "3.x"
 }
