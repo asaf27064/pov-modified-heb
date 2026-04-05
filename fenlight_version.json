@@ -1,4 +1,4 @@
 {
-    "version": "1.2.0",
-    "changelog": "Updated for FenLight 2.1.95 - fixed rpdb_info API, added trakt_movies_related, ai_model_active, Hebrew subtitles + OMDB ratings"
+    "version": "1.2.1",
+    "changelog": "Fixed for FenLight 2.1.95 - added Hebrew settings to settings_cache, fixed Hebrew subtitle matching display"
 }
