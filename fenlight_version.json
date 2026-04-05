@@ -1,4 +1,4 @@
 {
-    "version": "1.2.1",
-    "changelog": "Fixed for FenLight 2.1.95 - added Hebrew settings to settings_cache, fixed Hebrew subtitle matching display"
+    "version": "1.2.2",
+    "changelog": "Fixed: Hebrew matching display in sources window, added missing get_meta_language function"
 }
