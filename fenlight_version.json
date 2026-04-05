@@ -1,4 +1,4 @@
 {
-    "version": "1.2.2",
-    "changelog": "Fixed: Hebrew matching display in sources window, added missing get_meta_language function"
+    "version": "1.3.6",
+    "changelog": "Show total subtitles (with embedded in parentheses)"
 }
