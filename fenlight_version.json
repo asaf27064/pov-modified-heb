@@ -1,4 +1,4 @@
 {
-    "version": "1.3.7",
-    "changelog": "adding indicator for already played sources"
+    "version": "1.3.8",
+    "changelog": "changing matching precents subtitle to orange color [FFFF8800]"
 }
