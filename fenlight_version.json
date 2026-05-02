@@ -1,4 +1,4 @@
 {
-    "version": "1.3.9",
-    "changelog": "Cache check enabled by default; uncached results now shown below cached in main list"
+    "version": "1.4.0",
+    "changelog": "fixing problems in fenlight 2.2.03 with api keys of tmdb and trakt"
 }
