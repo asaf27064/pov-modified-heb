@@ -1,4 +1,4 @@
 {
-    "version": "1.4.1",
-    "changelog": "SDR filter option added to sources list — filter out HDR/DV results for non-HDR displays"
+    "version": "1.4.2",
+    "changelog": "fixing SDR filter option added to sources list — filter out HDR/DV results for non-HDR displays"
 }
