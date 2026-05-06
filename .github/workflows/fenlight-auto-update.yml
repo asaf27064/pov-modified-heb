@@ -1,0 +1,170 @@
+name: FenLight Auto-Update Check
+
+on:
+  schedule:
+    - cron: '0 6,18 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    env:
+      UPSTREAM_VERSION_URL: "https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/fen_light_version"
+      UPSTREAM_ZIP_URL: "https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/plugin.video.fenlight-{version}.zip"
+      MY_VERSION_FILE: "fenlight_version.json"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get versions
+        id: versions
+        run: |
+          UPSTREAM=$(curl -fsSL "$UPSTREAM_VERSION_URL" | tr -d '\n\r ')
+          echo "upstream=$UPSTREAM" >> "$GITHUB_OUTPUT"
+
+          COMPAT=$(python3 -c "import json; print(json.load(open('$MY_VERSION_FILE')).get('compatible_fenlight','0'))")
+          echo "compatible=$COMPAT" >> "$GITHUB_OUTPUT"
+
+          echo "Upstream: $UPSTREAM | Compatible: $COMPAT"
+
+          if [ "$UPSTREAM" = "$COMPAT" ]; then
+            echo "up_to_date=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "up_to_date=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download and compare
+        if: steps.versions.outputs.up_to_date == 'false'
+        id: compare
+        run: |
+          set -e
+          UPSTREAM="${{ steps.versions.outputs.upstream }}"
+          COMPAT="${{ steps.versions.outputs.compatible }}"
+
+          OLD_URL="${UPSTREAM_ZIP_URL//\{version\}/$COMPAT}"
+          NEW_URL="${UPSTREAM_ZIP_URL//\{version\}/$UPSTREAM}"
+
+          echo "Downloading old ($COMPAT): $OLD_URL"
+          curl -fsSL "$OLD_URL" -o old.zip || { echo "old_download_failed=true" >> "$GITHUB_OUTPUT"; exit 0; }
+
+          echo "Downloading new ($UPSTREAM): $NEW_URL"
+          curl -fsSL "$NEW_URL" -o new.zip || { echo "new_download_failed=true" >> "$GITHUB_OUTPUT"; exit 0; }
+
+          mkdir -p old new
+          unzip -q old.zip -d old
+          unzip -q new.zip -d new
+
+          OLD_LIB=$(find old -path "*/resources/lib" -type d | head -1)
+          NEW_LIB=$(find new -path "*/resources/lib" -type d | head -1)
+
+          if [ -z "$OLD_LIB" ] || [ -z "$NEW_LIB" ]; then
+            echo "Could not find resources/lib in ZIPs"
+            echo "structure_error=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          HEBREW_FILES=(
+            "modules/sources.py"
+            "modules/metadata.py"
+            "indexers/movies.py"
+            "indexers/tvshows.py"
+            "windows/sources.py"
+            "caches/settings_cache.py"
+            "apis/tmdb_api.py"
+            "service.py"
+          )
+
+          CHANGED_FILES=""
+          DIFF_OUTPUT=""
+
+          for f in "${HEBREW_FILES[@]}"; do
+            OLD_FILE="$OLD_LIB/$f"
+            NEW_FILE="$NEW_LIB/$f"
+
+            if [ ! -f "$OLD_FILE" ] && [ ! -f "$NEW_FILE" ]; then
+              continue
+            fi
+
+            if [ ! -f "$OLD_FILE" ]; then
+              CHANGED_FILES="$CHANGED_FILES $f(NEW)"
+              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f — NEW FILE\n"
+              continue
+            fi
+
+            if [ ! -f "$NEW_FILE" ]; then
+              CHANGED_FILES="$CHANGED_FILES $f(REMOVED)"
+              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f — REMOVED\n"
+              continue
+            fi
+
+            if ! diff -q "$OLD_FILE" "$NEW_FILE" > /dev/null 2>&1; then
+              CHANGED_FILES="$CHANGED_FILES $f"
+              DIFF_CONTENT=$(diff -u "$OLD_FILE" "$NEW_FILE" | head -80)
+              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f\n\`\`\`diff\n$DIFF_CONTENT\n\`\`\`\n"
+            fi
+          done
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "safe=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "safe=false" >> "$GITHUB_OUTPUT"
+            echo "changed_files=$CHANGED_FILES" >> "$GITHUB_OUTPUT"
+            printf "%b" "$DIFF_OUTPUT" > /tmp/diff_output.md
+          fi
+
+      - name: Auto-bump compatible_fenlight
+        if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.safe == 'true'
+        run: |
+          UPSTREAM="${{ steps.versions.outputs.upstream }}"
+          COMPAT="${{ steps.versions.outputs.compatible }}"
+
+          python3 -c "
+          import json
+          data = json.load(open('$MY_VERSION_FILE'))
+          data['compatible_fenlight'] = '$UPSTREAM'
+          json.dump(data, open('$MY_VERSION_FILE', 'w'), indent=4)
+          "
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$MY_VERSION_FILE"
+          git commit -m "Auto: Hebrew compatible with FenLight $UPSTREAM (no file changes)"
+          git push
+
+      - name: Open issue for manual review
+        if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.safe == 'false'
+        uses: actions/github-script@v7
+        env:
+          UPSTREAM: ${{ steps.versions.outputs.upstream }}
+        with:
+          script: |
+            const fs = require('fs');
+            let diffContent = '';
+            try { diffContent = fs.readFileSync('/tmp/diff_output.md', 'utf8'); } catch(e) { diffContent = 'Could not read diff'; }
+
+            const upstream = process.env.UPSTREAM;
+            const compatible = '${{ steps.versions.outputs.compatible }}';
+            const zipUrl = `https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/plugin.video.fenlight-${upstream}.zip`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `FenLight ${upstream} — Hebrew files need updating`,
+              body: `## FenLight Update Requires Manual Review\n\n**Upstream:** ${upstream}\n**Current compatible:** ${compatible}\n\n**Changed files:** ${('${{ steps.compare.outputs.changed_files }}')}\n\n### Steps:\n1. Download: ${zipUrl}\n2. Use FenLight Hebrew Mod Updater skill in Claude\n3. Update Hebrew files, test, push\n4. Update compatible_fenlight to ${upstream}\n5. Close this issue\n\n### Diffs:\n${diffContent}`,
+              labels: ['upstream-update', 'manual-review']
+            });
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.versions.outputs.up_to_date }}" = "true" ]; then
+            echo "## ✅ Up to date (${{ steps.versions.outputs.compatible }})" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "${{ steps.compare.outputs.safe }}" = "true" ]; then
+            echo "## ✅ Auto-bumped: ${{ steps.versions.outputs.compatible }} → ${{ steps.versions.outputs.upstream }}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## ⚠️ Manual review: ${{ steps.versions.outputs.compatible }} → ${{ steps.versions.outputs.upstream }}" >> "$GITHUB_STEP_SUMMARY"
+            echo "Changed: ${{ steps.compare.outputs.changed_files }}" >> "$GITHUB_STEP_SUMMARY"
+          fi
