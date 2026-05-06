@@ -1,5 +1,5 @@
 {
     "version": "1.4.2",
-    "compatible_fenlight": "2.2.03",
-    "changelog": "fixing SDR filter option added to sources list — filter out HDR/DV results for non-HDR displays"
+    "compatible_fenlight": "2.2.04",
+    "changelog": "fixing SDR filter option added to sources list \u2014 filter out HDR/DV results for non-HDR displays"
 }
