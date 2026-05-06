@@ -13,17 +13,39 @@ jobs:
       issues: write
 
     env:
-      UPSTREAM_VERSION_URL: "https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/fen_light_version"
-      UPSTREAM_ZIP_URL: "https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/plugin.video.fenlight-{version}.zip"
       MY_VERSION_FILE: "fenlight_version.json"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Get versions
         id: versions
         run: |
-          UPSTREAM=$(curl -fsSL "$UPSTREAM_VERSION_URL" | tr -d '\n\r ')
+          # Try multiple upstream sources
+          UPSTREAM=""
+
+          # Source 1: FenlightAnonyMouse GitHub
+          UPSTREAM=$(curl -fsSL "https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/fen_light_version" 2>/dev/null | tr -d '\n\r ')
+          if [ -n "$UPSTREAM" ]; then
+            echo "source=FenlightAnonyMouse" >> "$GITHUB_OUTPUT"
+            echo "zip_base=https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages" >> "$GITHUB_OUTPUT"
+          fi
+
+          # Source 2: tikipeter (fallback)
+          if [ -z "$UPSTREAM" ]; then
+            UPSTREAM=$(curl -fsSL "https://github.com/tikimaniac/repository.tikipeter/raw/main/packages/fen_light_version" 2>/dev/null | tr -d '\n\r ')
+            if [ -n "$UPSTREAM" ]; then
+              echo "source=tikipeter" >> "$GITHUB_OUTPUT"
+              echo "zip_base=https://github.com/tikimaniac/repository.tikipeter/raw/main/packages" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+          if [ -z "$UPSTREAM" ]; then
+            echo "All upstream sources failed"
+            echo "upstream_failed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           echo "upstream=$UPSTREAM" >> "$GITHUB_OUTPUT"
 
           COMPAT=$(python3 -c "import json; print(json.load(open('$MY_VERSION_FILE')).get('compatible_fenlight','0'))")
@@ -38,15 +60,16 @@ jobs:
           fi
 
       - name: Download and compare
-        if: steps.versions.outputs.up_to_date == 'false'
+        if: steps.versions.outputs.up_to_date == 'false' && steps.versions.outputs.upstream_failed != 'true'
         id: compare
         run: |
           set -e
           UPSTREAM="${{ steps.versions.outputs.upstream }}"
           COMPAT="${{ steps.versions.outputs.compatible }}"
+          ZIP_BASE="${{ steps.versions.outputs.zip_base }}"
 
-          OLD_URL="${UPSTREAM_ZIP_URL//\{version\}/$COMPAT}"
-          NEW_URL="${UPSTREAM_ZIP_URL//\{version\}/$UPSTREAM}"
+          OLD_URL="$ZIP_BASE/plugin.video.fenlight-$COMPAT.zip"
+          NEW_URL="$ZIP_BASE/plugin.video.fenlight-$UPSTREAM.zip"
 
           echo "Downloading old ($COMPAT): $OLD_URL"
           curl -fsSL "$OLD_URL" -o old.zip || { echo "old_download_failed=true" >> "$GITHUB_OUTPUT"; exit 0; }
@@ -117,7 +140,7 @@ jobs:
           fi
 
       - name: Auto-bump compatible_fenlight
-        if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.safe == 'true'
+        if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.safe == 'true' && steps.versions.outputs.upstream_failed != 'true'
         run: |
           UPSTREAM="${{ steps.versions.outputs.upstream }}"
           COMPAT="${{ steps.versions.outputs.compatible }}"
@@ -140,6 +163,7 @@ jobs:
         uses: actions/github-script@v7
         env:
           UPSTREAM: ${{ steps.versions.outputs.upstream }}
+          ZIP_BASE: ${{ steps.versions.outputs.zip_base }}
         with:
           script: |
             const fs = require('fs');
@@ -148,7 +172,7 @@ jobs:
 
             const upstream = process.env.UPSTREAM;
             const compatible = '${{ steps.versions.outputs.compatible }}';
-            const zipUrl = `https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/plugin.video.fenlight-${upstream}.zip`;
+            const zipUrl = `${process.env.ZIP_BASE}/plugin.video.fenlight-${upstream}.zip`;
 
             await github.rest.issues.create({
               owner: context.repo.owner,
