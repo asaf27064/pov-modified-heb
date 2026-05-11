@@ -1,6 +1,6 @@
 {
-    "version": "1.4.2",
+    "version": "1.4.3",
     "compatible_fenlight": "2.2.04",
     "min_fenlight": "2.2.03",
-    "changelog": "fixing SDR filter option added to sources list — filter out HDR/DV results for non-HDR displays"
+    "changelog": "fixing api's keys trakt and tmdb"
 }
