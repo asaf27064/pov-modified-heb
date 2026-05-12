@@ -1,6 +1,6 @@
 {
-    "version": "1.4.3",
+    "version": "1.4.5",
     "compatible_fenlight": "2.2.04",
     "min_fenlight": "2.2.03",
-    "changelog": "fixing api's keys trakt and tmdb"
+    "changelog": "fixing some bugs in implantation"
 }
