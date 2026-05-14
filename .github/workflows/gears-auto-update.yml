@@ -1,4 +1,4 @@
-name: FenLight Auto-Update Check
+name: Gears Auto-Update Check
 
 on:
   schedule:
@@ -13,7 +13,7 @@ jobs:
       issues: write
 
     env:
-      MY_VERSION_FILE: "fenlight_version.json"
+      MY_VERSION_FILE: "gears_version.json"
 
     steps:
       - uses: actions/checkout@v5
@@ -21,34 +21,25 @@ jobs:
       - name: Get versions
         id: versions
         run: |
-          # Try multiple upstream sources
-          UPSTREAM=""
+          # Upstream source: chainsrepo addons.xml (https://unhingedthemes.github.io)
+          ADDONS_XML_URL="https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml"
+          ZIP_BASE="https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/plugin.video.gears"
 
-          # Source 1: FenlightAnonyMouse GitHub
-          UPSTREAM=$(curl -fsSL "https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages/fen_light_version" 2>/dev/null | tr -d '\n\r ')
-          if [ -n "$UPSTREAM" ]; then
-            echo "source=FenlightAnonyMouse" >> "$GITHUB_OUTPUT"
-            echo "zip_base=https://raw.githubusercontent.com/FenlightAnonyMouse/FenlightAnonyMouse.github.io/main/packages" >> "$GITHUB_OUTPUT"
-          fi
-
-          # Source 2: tikipeter (fallback)
-          if [ -z "$UPSTREAM" ]; then
-            UPSTREAM=$(curl -fsSL "https://github.com/tikimaniac/repository.tikipeter/raw/main/packages/fen_light_version" 2>/dev/null | tr -d '\n\r ')
-            if [ -n "$UPSTREAM" ]; then
-              echo "source=tikipeter" >> "$GITHUB_OUTPUT"
-              echo "zip_base=https://github.com/tikimaniac/repository.tikipeter/raw/main/packages" >> "$GITHUB_OUTPUT"
-            fi
-          fi
+          UPSTREAM=$(curl -fsSL "$ADDONS_XML_URL" 2>/dev/null \
+            | python3 -c "import sys, re; m = re.search(r'<addon[^>]*id=\"plugin\.video\.gears\"[^>]*version=\"([^\"]+)\"', sys.stdin.read()); print(m.group(1) if m else '')" \
+            | tr -d '\n\r ')
 
           if [ -z "$UPSTREAM" ]; then
-            echo "All upstream sources failed"
+            echo "Upstream lookup failed"
             echo "upstream_failed=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
+          echo "source=chainsrepo" >> "$GITHUB_OUTPUT"
+          echo "zip_base=$ZIP_BASE" >> "$GITHUB_OUTPUT"
           echo "upstream=$UPSTREAM" >> "$GITHUB_OUTPUT"
 
-          COMPAT=$(python3 -c "import json; print(json.load(open('$MY_VERSION_FILE')).get('compatible_fenlight','0'))")
+          COMPAT=$(python3 -c "import json; print(json.load(open('$MY_VERSION_FILE')).get('compatible_gears','0'))")
           echo "compatible=$COMPAT" >> "$GITHUB_OUTPUT"
 
           echo "Upstream: $UPSTREAM | Compatible: $COMPAT"
@@ -68,8 +59,8 @@ jobs:
           COMPAT="${{ steps.versions.outputs.compatible }}"
           ZIP_BASE="${{ steps.versions.outputs.zip_base }}"
 
-          OLD_URL="$ZIP_BASE/plugin.video.fenlight-$COMPAT.zip"
-          NEW_URL="$ZIP_BASE/plugin.video.fenlight-$UPSTREAM.zip"
+          OLD_URL="$ZIP_BASE/plugin.video.gears-$COMPAT.zip"
+          NEW_URL="$ZIP_BASE/plugin.video.gears-$UPSTREAM.zip"
 
           echo "Downloading old ($COMPAT): $OLD_URL"
           curl -fsSL "$OLD_URL" -o old.zip || { echo "old_download_failed=true" >> "$GITHUB_OUTPUT"; exit 0; }
@@ -90,16 +81,15 @@ jobs:
             exit 0
           fi
 
+          # Files we actually overlay/inject Hebrew code into for Gears
           HEBREW_FILES=(
             "modules/sources.py"
-            "modules/metadata.py"
-            "indexers/movies.py"
-            "indexers/tvshows.py"
             "windows/sources.py"
             "caches/settings_cache.py"
-            "apis/tmdb_api.py"
-            "service.py"
           )
+
+          # Also watch the settings_manager.xml in skins/Default/1080i
+          XML_REL="../skins/Default/1080i/settings_manager.xml"
 
           CHANGED_FILES=""
           DIFF_OUTPUT=""
@@ -131,6 +121,17 @@ jobs:
             fi
           done
 
+          # Compare settings_manager.xml (separate location)
+          OLD_XML="$OLD_LIB/$XML_REL"
+          NEW_XML="$NEW_LIB/$XML_REL"
+          if [ -f "$OLD_XML" ] && [ -f "$NEW_XML" ]; then
+            if ! diff -q "$OLD_XML" "$NEW_XML" > /dev/null 2>&1; then
+              CHANGED_FILES="$CHANGED_FILES settings_manager.xml"
+              DIFF_CONTENT=$(diff -u "$OLD_XML" "$NEW_XML" | head -80)
+              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### settings_manager.xml\n\`\`\`diff\n$DIFF_CONTENT\n\`\`\`\n"
+            fi
+          fi
+
           if [ -z "$CHANGED_FILES" ]; then
             echo "safe=true" >> "$GITHUB_OUTPUT"
           else
@@ -139,7 +140,7 @@ jobs:
             printf "%b" "$DIFF_OUTPUT" > /tmp/diff_output.md
           fi
 
-      - name: Auto-bump compatible_fenlight
+      - name: Auto-bump compatible_gears
         if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.safe == 'true' && steps.versions.outputs.upstream_failed != 'true'
         run: |
           UPSTREAM="${{ steps.versions.outputs.upstream }}"
@@ -148,14 +149,14 @@ jobs:
           python3 -c "
           import json
           data = json.load(open('$MY_VERSION_FILE'))
-          data['compatible_fenlight'] = '$UPSTREAM'
+          data['compatible_gears'] = '$UPSTREAM'
           json.dump(data, open('$MY_VERSION_FILE', 'w'), indent=4)
           "
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "$MY_VERSION_FILE"
-          git commit -m "Auto: Hebrew compatible with FenLight $UPSTREAM (no file changes)"
+          git commit -m "Auto: Hebrew compatible with Gears $UPSTREAM (no file changes)"
           git push
 
       - name: Open issue for manual review
@@ -172,13 +173,13 @@ jobs:
 
             const upstream = process.env.UPSTREAM;
             const compatible = '${{ steps.versions.outputs.compatible }}';
-            const zipUrl = `${process.env.ZIP_BASE}/plugin.video.fenlight-${upstream}.zip`;
+            const zipUrl = `${process.env.ZIP_BASE}/plugin.video.gears-${upstream}.zip`;
 
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `FenLight ${upstream} — Hebrew files need updating`,
-              body: `## FenLight Update Requires Manual Review\n\n**Upstream:** ${upstream}\n**Current compatible:** ${compatible}\n\n**Changed files:** ${('${{ steps.compare.outputs.changed_files }}')}\n\n### Steps:\n1. Download: ${zipUrl}\n2. Use FenLight Hebrew Mod Updater skill in Claude\n3. Update Hebrew files, test, push\n4. Update compatible_fenlight to ${upstream}\n5. Close this issue\n\n### Diffs:\n${diffContent}`,
+              title: `Gears ${upstream} — Hebrew files need updating`,
+              body: `## Gears Update Requires Manual Review\n\n**Upstream:** ${upstream}\n**Current compatible:** ${compatible}\n\n**Changed files:** ${('${{ steps.compare.outputs.changed_files }}')}\n\n### Steps:\n1. Download: ${zipUrl}\n2. Use FenLight Hebrew Mod Updater skill in Claude\n3. Update Hebrew files, test, push\n4. Update compatible_gears to ${upstream}\n5. Close this issue\n\n### Diffs:\n${diffContent}`,
               labels: ['upstream-update', 'manual-review']
             });
 
