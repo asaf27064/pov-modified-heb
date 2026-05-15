@@ -1,6 +1,6 @@
 {
-    "version": "2.0.4",
+    "version": "2.0.5",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Hebrew episode synopses (patched season_episodes_details + movie_set_details TMDb endpoints to use meta_language)"
+    "changelog": "Bundle FenLight icons (102 in-addon icons + 76 network logos) — Hebrew reinstall now preserves the original FenLight look instead of falling back to Gears defaults"
 }

@@ -84,6 +84,13 @@ jobs:
           # Files we actually overlay/inject Hebrew code into for Gears.
           # KEEP IN SYNC with REQUIRED_FILES in ~/.claude/skills/masterkodi-il-builder/scripts/rebuild_hebrew_zip.py
           # If upstream changes any of these, the workflow opens a manual-review issue with the diff.
+          #
+          # NOTE: We also bundle ~178 PNG icons + network_icons in the overlay zip under
+          # resources/media/icons/ and resources/media/network_icons/. These are NOT
+          # in HEBREW_FILES because they're our bundled resources, not upstream-patched code —
+          # gears upstream changing its icons wouldn't break our Hebrew patches. The icons
+          # are sourced from the Tikipeter fenlight mirror (the original FenlightAnonyMouse
+          # repo is dead).
           HEBREW_FILES=(
             "modules/sources.py"
             "windows/sources.py"
