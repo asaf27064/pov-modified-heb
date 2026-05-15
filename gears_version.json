@@ -1,6 +1,6 @@
 {
-    "version": "2.0.2",
+    "version": "2.0.3",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Replace TorBox 'paste API key' auth with QR + 6-digit PIN device flow (matches POV/RD UX)"
+    "changelog": "Restore SDR-only filter (hide HDR/DV) + tried-source tracking (red הופעל badge) — both were FenLight features missed in the initial Gears port"
 }
