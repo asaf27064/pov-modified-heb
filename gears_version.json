@@ -1,6 +1,6 @@
 {
-    "version": "2.0.1",
+    "version": "2.0.2",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Restore Hebrew TMDb synopses (apis/tmdb_api.py) and per-listitem ratings (indexers/movies.py, tvshows.py) — files were missed in the initial Gears port"
+    "changelog": "Replace TorBox 'paste API key' auth with QR + 6-digit PIN device flow (matches POV/RD UX)"
 }

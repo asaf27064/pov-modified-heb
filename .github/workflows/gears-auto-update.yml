@@ -81,11 +81,17 @@ jobs:
             exit 0
           fi
 
-          # Files we actually overlay/inject Hebrew code into for Gears
+          # Files we actually overlay/inject Hebrew code into for Gears.
+          # KEEP IN SYNC with REQUIRED_FILES in ~/.claude/skills/masterkodi-il-builder/scripts/rebuild_hebrew_zip.py
+          # If upstream changes any of these, the workflow opens a manual-review issue with the diff.
           HEBREW_FILES=(
             "modules/sources.py"
             "windows/sources.py"
             "caches/settings_cache.py"
+            "apis/tmdb_api.py"
+            "apis/torbox_api.py"
+            "indexers/movies.py"
+            "indexers/tvshows.py"
           )
 
           # Also watch the settings_manager.xml in skins/Default/1080i
