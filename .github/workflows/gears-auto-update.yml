@@ -94,11 +94,13 @@ jobs:
           HEBREW_FILES=(
             "modules/sources.py"
             "windows/sources.py"
+            "modules/meta_lists.py"
             "caches/settings_cache.py"
             "apis/tmdb_api.py"
             "apis/torbox_api.py"
             "indexers/movies.py"
             "indexers/tvshows.py"
+            "indexers/navigator.py"
           )
 
           # Also watch the settings_manager.xml in skins/Default/1080i

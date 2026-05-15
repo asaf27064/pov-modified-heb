@@ -1,6 +1,6 @@
 {
-    "version": "2.0.5",
+    "version": "2.0.6",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Bundle FenLight icons (102 in-addon icons + 76 network logos) — Hebrew reinstall now preserves the original FenLight look instead of falling back to Gears defaults"
+    "changelog": "Restore per-genre category icons (Gears collapsed all genres to one icon; patched modules/meta_lists.py + indexers/navigator.py to use distinct icons per genre, like FenLight) + revert 58 base gears icons that were over-replaced in 2.0.5"
 }
