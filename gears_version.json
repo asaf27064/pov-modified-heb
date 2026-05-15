@@ -1,6 +1,6 @@
 {
-    "version": "2.0.7",
+    "version": "2.0.8",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Add TorBox subscription banner on addon startup (Hebrew toast showing days remaining via the /v1/api/user/me premium_expires_at field). Once-per-session throttle."
+    "changelog": "Generalize subscription banner to all 6 debrids (RD/AD/PM/OC/ED/TB). Per-service heading + body showing days (or hours when <24h) and expiration date in local time. Sequential 1s gap when multiple debrids are enabled."
 }
