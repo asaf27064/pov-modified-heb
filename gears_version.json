@@ -1,6 +1,6 @@
 {
-    "version": "2.0.0",
+    "version": "2.0.1",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Migrated Hebrew mod from FenLight to Gears (The Gears fork)"
+    "changelog": "Restore Hebrew TMDb synopses (apis/tmdb_api.py) and per-listitem ratings (indexers/movies.py, tvshows.py) — files were missed in the initial Gears port"
 }
