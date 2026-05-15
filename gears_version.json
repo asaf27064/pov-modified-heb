@@ -1,6 +1,6 @@
 {
-    "version": "2.0.6",
+    "version": "2.0.7",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Restore per-genre category icons (Gears collapsed all genres to one icon; patched modules/meta_lists.py + indexers/navigator.py to use distinct icons per genre, like FenLight) + revert 58 base gears icons that were over-replaced in 2.0.5"
+    "changelog": "Add TorBox subscription banner on addon startup (Hebrew toast showing days remaining via the /v1/api/user/me premium_expires_at field). Once-per-session throttle."
 }

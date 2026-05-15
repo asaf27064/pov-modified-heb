@@ -92,6 +92,7 @@ jobs:
           # are sourced from the Tikipeter fenlight mirror (the original FenlightAnonyMouse
           # repo is dead).
           HEBREW_FILES=(
+            "service.py"
             "modules/sources.py"
             "windows/sources.py"
             "modules/meta_lists.py"
