@@ -1,6 +1,6 @@
 {
-    "version": "2.0.8",
+    "version": "2.0.9",
     "compatible_gears": "2.0.7",
     "min_gears": "2.0.7",
-    "changelog": "Generalize subscription banner to all 6 debrids (RD/AD/PM/OC/ED/TB). Per-service heading + body showing days (or hours when <24h) and expiration date in local time. Sequential 1s gap when multiple debrids are enabled."
+    "changelog": "Subscription banner: add 4-digit year to expiration date (DD/MM/YYYY) + insert RLM (U+200F) before the number in the heading so it displays adjacent to its Hebrew noun instead of being pulled into the leading LTR run."
 }
