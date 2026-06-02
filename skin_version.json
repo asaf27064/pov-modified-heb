@@ -1,5 +1,5 @@
 {
-    "version": "1.0.4",
-    "changelog": "added darksubs window button in subtitle choice menu for arctic fuse 3",
+    "version": "1.0.5",
+    "changelog": "Fix OSD auto-close timer (Includes_Actions.xml): stock AlarmClock interval $INFO[Skin.String(OSD_Timeout),00:,] produces malformed 00:5/00:0 strings and never fires. Now uses $VAR[OSD_Timeout_Seconds] with proper fallback to 5s.",
     "skin_version": "3.x"
 }
