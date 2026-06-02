@@ -1,5 +1,5 @@
 {
-    "version": "1.0.6",
-    "changelog": "Drop the !String.IsEmpty(Skin.String(OSD_Timeout)) gate from Action_OSD_Button onfocus/onclick. The wizard preserves an empty user settings.xml across reinstalls, so the gate blocked the auto-close timer for everyone who didn't manually set OSD_Timeout. The $VAR[OSD_Timeout_Seconds] fallback to 5s now applies universally.",
+    "version": "1.0.7",
+    "changelog": "VideoOSD.xml self-destruct timer: when the toolbar is opened via Enter/center-button, Kodi doesn't fire onfocus for the initial default control, so no alarm was ever set and the bar lingered forever. Adds an <onload> AlarmClock guarded by !System.HasAlarm so it doesn't stomp on focus-driven alarms. Pair with the 1.0.6 Includes_Actions.xml gate-removal — together they cover all 5 OSD-open paths (spacebar, mouse hover, arrow keys, Enter-to-open, Enter-on-button).",
     "skin_version": "3.x"
 }
