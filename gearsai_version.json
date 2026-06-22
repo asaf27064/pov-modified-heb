@@ -1,0 +1,6 @@
+{
+    "version": "0.2.0",
+    "addon_id": "service.subtitles.gearsai",
+    "name": "MasterKodi AI Subs",
+    "changelog": "AI Hebrew subtitle translation (Gemini) + community pool, free re-sync across releases, parallel translation, defers to DarkSubs."
+}
