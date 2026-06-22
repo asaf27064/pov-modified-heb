@@ -14,6 +14,7 @@ jobs:
 
     env:
       MY_VERSION_FILE: "gears_version.json"
+      BASELINE_DIR: "gears_baseline"
 
     steps:
       - uses: actions/checkout@v5
@@ -21,7 +22,6 @@ jobs:
       - name: Get versions
         id: versions
         run: |
-          # Upstream source: chainsrepo addons.xml (https://unhingedthemes.github.io)
           ADDONS_XML_URL="https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml"
           ZIP_BASE="https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/plugin.video.gears"
 
@@ -35,13 +35,11 @@ jobs:
             exit 0
           fi
 
-          echo "source=chainsrepo" >> "$GITHUB_OUTPUT"
           echo "zip_base=$ZIP_BASE" >> "$GITHUB_OUTPUT"
           echo "upstream=$UPSTREAM" >> "$GITHUB_OUTPUT"
 
           COMPAT=$(python3 -c "import json; print(json.load(open('$MY_VERSION_FILE')).get('compatible_gears','0'))")
           echo "compatible=$COMPAT" >> "$GITHUB_OUTPUT"
-
           echo "Upstream: $UPSTREAM | Compatible: $COMPAT"
 
           if [ "$UPSTREAM" = "$COMPAT" ]; then
@@ -50,100 +48,64 @@ jobs:
             echo "up_to_date=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Download and compare
+      # Diff the NEW upstream against our stored clean baseline (gears_baseline/).
+      # Upstream prunes old zips, so we can no longer download the old version to
+      # compare -- the baseline is our reliable reference and never 404s.
+      - name: Download new and compare to baseline
         if: steps.versions.outputs.up_to_date == 'false' && steps.versions.outputs.upstream_failed != 'true'
         id: compare
         run: |
           set -e
           UPSTREAM="${{ steps.versions.outputs.upstream }}"
-          COMPAT="${{ steps.versions.outputs.compatible }}"
           ZIP_BASE="${{ steps.versions.outputs.zip_base }}"
-
-          OLD_URL="$ZIP_BASE/plugin.video.gears-$COMPAT.zip"
           NEW_URL="$ZIP_BASE/plugin.video.gears-$UPSTREAM.zip"
 
-          echo "Downloading old ($COMPAT): $OLD_URL"
-          curl -fsSL "$OLD_URL" -o old.zip || { echo "old_download_failed=true" >> "$GITHUB_OUTPUT"; exit 0; }
-
           echo "Downloading new ($UPSTREAM): $NEW_URL"
-          curl -fsSL "$NEW_URL" -o new.zip || { echo "new_download_failed=true" >> "$GITHUB_OUTPUT"; exit 0; }
+          if ! curl -fsSL "$NEW_URL" -o new.zip; then
+            echo "new_download_failed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
-          mkdir -p old new
-          unzip -q old.zip -d old
-          unzip -q new.zip -d new
-
-          OLD_LIB=$(find old -path "*/resources/lib" -type d | head -1)
+          mkdir -p new && unzip -q new.zip -d new
           NEW_LIB=$(find new -path "*/resources/lib" -type d | head -1)
-
-          if [ -z "$OLD_LIB" ] || [ -z "$NEW_LIB" ]; then
-            echo "Could not find resources/lib in ZIPs"
+          NEW_XML=$(find new -path "*/skins/Default/1080i/settings_manager.xml" | head -1)
+          if [ -z "$NEW_LIB" ]; then
             echo "structure_error=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # Files we actually overlay/inject Hebrew code into for Gears.
-          # KEEP IN SYNC with REQUIRED_FILES in ~/.claude/skills/masterkodi-il-builder/scripts/rebuild_hebrew_zip.py
-          # If upstream changes any of these, the workflow opens a manual-review issue with the diff.
-          #
-          # NOTE: We also bundle ~178 PNG icons + network_icons in the overlay zip under
-          # resources/media/icons/ and resources/media/network_icons/. These are NOT
-          # in HEBREW_FILES because they're our bundled resources, not upstream-patched code —
-          # gears upstream changing its icons wouldn't break our Hebrew patches. The icons
-          # are sourced from the Tikipeter fenlight mirror (the original FenlightAnonyMouse
-          # repo is dead).
           HEBREW_FILES=(
-            "service.py"
-            "modules/sources.py"
-            "windows/sources.py"
-            "modules/meta_lists.py"
-            "caches/settings_cache.py"
-            "apis/tmdb_api.py"
-            "apis/torbox_api.py"
-            "indexers/movies.py"
-            "indexers/tvshows.py"
-            "indexers/navigator.py"
+            "service.py" "modules/sources.py" "windows/sources.py" "modules/meta_lists.py"
+            "caches/settings_cache.py" "apis/tmdb_api.py" "apis/torbox_api.py"
+            "indexers/movies.py" "indexers/tvshows.py" "indexers/navigator.py"
           )
-
-          # Also watch the settings_manager.xml in skins/Default/1080i
-          XML_REL="../skins/Default/1080i/settings_manager.xml"
 
           CHANGED_FILES=""
           DIFF_OUTPUT=""
-
           for f in "${HEBREW_FILES[@]}"; do
-            OLD_FILE="$OLD_LIB/$f"
+            BASE_FILE="$BASELINE_DIR/lib/$f"
             NEW_FILE="$NEW_LIB/$f"
-
-            if [ ! -f "$OLD_FILE" ] && [ ! -f "$NEW_FILE" ]; then
-              continue
+            if [ ! -f "$BASE_FILE" ] && [ ! -f "$NEW_FILE" ]; then continue; fi
+            if [ ! -f "$BASE_FILE" ]; then
+              CHANGED_FILES="$CHANGED_FILES $f(NO-BASELINE)"
+              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f — no baseline copy\n"; continue
             fi
-
-            if [ ! -f "$OLD_FILE" ]; then
-              CHANGED_FILES="$CHANGED_FILES $f(NEW)"
-              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f — NEW FILE\n"
-              continue
-            fi
-
             if [ ! -f "$NEW_FILE" ]; then
               CHANGED_FILES="$CHANGED_FILES $f(REMOVED)"
-              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f — REMOVED\n"
-              continue
+              DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f — REMOVED upstream\n"; continue
             fi
-
-            if ! diff -q "$OLD_FILE" "$NEW_FILE" > /dev/null 2>&1; then
+            if ! diff -q "$BASE_FILE" "$NEW_FILE" > /dev/null 2>&1; then
               CHANGED_FILES="$CHANGED_FILES $f"
-              DIFF_CONTENT=$(diff -u "$OLD_FILE" "$NEW_FILE" | head -80)
+              DIFF_CONTENT=$(diff -u "$BASE_FILE" "$NEW_FILE" | head -80)
               DIFF_OUTPUT="$DIFF_OUTPUT\n\n### $f\n\`\`\`diff\n$DIFF_CONTENT\n\`\`\`\n"
             fi
           done
 
-          # Compare settings_manager.xml (separate location)
-          OLD_XML="$OLD_LIB/$XML_REL"
-          NEW_XML="$NEW_LIB/$XML_REL"
-          if [ -f "$OLD_XML" ] && [ -f "$NEW_XML" ]; then
-            if ! diff -q "$OLD_XML" "$NEW_XML" > /dev/null 2>&1; then
+          BASE_XML="$BASELINE_DIR/settings_manager.xml"
+          if [ -f "$BASE_XML" ] && [ -n "$NEW_XML" ] && [ -f "$NEW_XML" ]; then
+            if ! diff -q "$BASE_XML" "$NEW_XML" > /dev/null 2>&1; then
               CHANGED_FILES="$CHANGED_FILES settings_manager.xml"
-              DIFF_CONTENT=$(diff -u "$OLD_XML" "$NEW_XML" | head -80)
+              DIFF_CONTENT=$(diff -u "$BASE_XML" "$NEW_XML" | head -80)
               DIFF_OUTPUT="$DIFF_OUTPUT\n\n### settings_manager.xml\n\`\`\`diff\n$DIFF_CONTENT\n\`\`\`\n"
             fi
           fi
@@ -156,25 +118,27 @@ jobs:
             printf "%b" "$DIFF_OUTPUT" > /tmp/diff_output.md
           fi
 
+      # Safe (no watched files changed): bump compatible_gears AND advance the
+      # baseline marker (the watched files are identical, so the baseline still
+      # represents the new version).
       - name: Auto-bump compatible_gears
         if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.safe == 'true' && steps.versions.outputs.upstream_failed != 'true'
         run: |
           UPSTREAM="${{ steps.versions.outputs.upstream }}"
-          COMPAT="${{ steps.versions.outputs.compatible }}"
-
           python3 -c "
           import json
           data = json.load(open('$MY_VERSION_FILE'))
           data['compatible_gears'] = '$UPSTREAM'
           json.dump(data, open('$MY_VERSION_FILE', 'w'), indent=4)
           "
-
+          echo "$UPSTREAM" > "$BASELINE_DIR/BASELINE_VERSION.txt"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "$MY_VERSION_FILE"
-          git commit -m "Auto: Hebrew compatible with Gears $UPSTREAM (no file changes)"
+          git add "$MY_VERSION_FILE" "$BASELINE_DIR/BASELINE_VERSION.txt"
+          git commit -m "Auto: Hebrew compatible with Gears $UPSTREAM (watched files unchanged)"
           git push
 
+      # Watched files changed -> manual re-patch needed: open an issue with diffs.
       - name: Open issue for manual review
         if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.safe == 'false'
         uses: actions/github-script@v7
@@ -186,26 +150,48 @@ jobs:
             const fs = require('fs');
             let diffContent = '';
             try { diffContent = fs.readFileSync('/tmp/diff_output.md', 'utf8'); } catch(e) { diffContent = 'Could not read diff'; }
-
             const upstream = process.env.UPSTREAM;
             const compatible = '${{ steps.versions.outputs.compatible }}';
             const zipUrl = `${process.env.ZIP_BASE}/plugin.video.gears-${upstream}.zip`;
-
+            // Avoid duplicate issues for the same upstream version.
+            const existing = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'upstream-update' });
+            if (existing.data.some(i => i.title.includes(upstream))) { console.log('Issue already open for ' + upstream); return; }
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `Gears ${upstream} — Hebrew files need updating`,
-              body: `## Gears Update Requires Manual Review\n\n**Upstream:** ${upstream}\n**Current compatible:** ${compatible}\n\n**Changed files:** ${('${{ steps.compare.outputs.changed_files }}')}\n\n### Steps:\n1. Download: ${zipUrl}\n2. Use FenLight Hebrew Mod Updater skill in Claude\n3. Update Hebrew files, test, push\n4. Update compatible_gears to ${upstream}\n5. Close this issue\n\n### Diffs:\n${diffContent}`,
+              body: `## Gears Update Requires Manual Review\n\n**Upstream:** ${upstream}\n**Current compatible:** ${compatible}\n\n**Changed files:** ${('${{ steps.compare.outputs.changed_files }}')}\n\n### Steps:\n1. Download: ${zipUrl}\n2. Use masterkodi-il-builder skill in Claude (hebrew-mod workflow)\n3. Re-apply Hebrew patches onto the new files, test, push\n4. Refresh gears_baseline/ from clean ${upstream}, set compatible_gears=${upstream}\n5. Close this issue\n\n### Diffs (baseline vs ${upstream}):\n${diffContent}`,
+              labels: ['upstream-update', 'manual-review']
+            });
+
+      # If we couldn't even download the new upstream zip, DON'T fail silently --
+      # tell the maintainer so they can check what changed upstream.
+      - name: Open issue on download failure
+        if: steps.versions.outputs.up_to_date == 'false' && steps.compare.outputs.new_download_failed == 'true'
+        uses: actions/github-script@v7
+        env:
+          UPSTREAM: ${{ steps.versions.outputs.upstream }}
+        with:
+          script: |
+            const upstream = process.env.UPSTREAM;
+            const existing = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'upstream-update' });
+            if (existing.data.some(i => i.title.includes(upstream))) return;
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title: `Gears ${upstream} — could not download for comparison`,
+              body: `Upstream Gears is ${upstream} but the workflow could not download its zip to compare. Please check the upstream zip path and review manually.`,
               labels: ['upstream-update', 'manual-review']
             });
 
       - name: Summary
         run: |
           if [ "${{ steps.versions.outputs.up_to_date }}" = "true" ]; then
-            echo "## ✅ Up to date (${{ steps.versions.outputs.compatible }})" >> "$GITHUB_STEP_SUMMARY"
+            echo "## Up to date (${{ steps.versions.outputs.compatible }})" >> "$GITHUB_STEP_SUMMARY"
           elif [ "${{ steps.compare.outputs.safe }}" = "true" ]; then
-            echo "## ✅ Auto-bumped: ${{ steps.versions.outputs.compatible }} → ${{ steps.versions.outputs.upstream }}" >> "$GITHUB_STEP_SUMMARY"
+            echo "## Auto-bumped: ${{ steps.versions.outputs.compatible }} -> ${{ steps.versions.outputs.upstream }}" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "${{ steps.compare.outputs.new_download_failed }}" = "true" ]; then
+            echo "## Download failed for ${{ steps.versions.outputs.upstream }} - issue opened" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "## ⚠️ Manual review: ${{ steps.versions.outputs.compatible }} → ${{ steps.versions.outputs.upstream }}" >> "$GITHUB_STEP_SUMMARY"
+            echo "## Manual review: ${{ steps.versions.outputs.compatible }} -> ${{ steps.versions.outputs.upstream }}" >> "$GITHUB_STEP_SUMMARY"
             echo "Changed: ${{ steps.compare.outputs.changed_files }}" >> "$GITHUB_STEP_SUMMARY"
           fi
