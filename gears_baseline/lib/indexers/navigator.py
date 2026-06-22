@@ -44,10 +44,13 @@ class Navigator:
 					info_tag.setPlot(' ')
 					if not self.is_external: listitem.addContextMenuItems(cm_items)
 					yield ((url, listitem, True), count)
-				except: pass
+				except Exception as e:
+					k.logger('navigator.main._process', 'ITEM FAILED [%s] item=%s err=%s' % (self.list_name, item, e))
 		if self.params_get('full_list', 'false') == 'true': browse_list = nc.get_main_lists(self.list_name)[0]
 		else: browse_list = nc.currently_used_list(self.list_name)
+		k.logger('navigator.main', 'list_name=%s browse_count=%s' % (self.list_name, len(browse_list) if browse_list else 0))
 		results = sorted(list(_process()), key=lambda k: k[1])
+		k.logger('navigator.main', 'results_count=%s' % len(results))
 		k.add_items(int(sys.argv[1]), [i[0] for i in results])
 		self.end_directory()
 
@@ -261,10 +264,14 @@ class Navigator:
 	def changelog_utils(self):
 		log_loc, old_log_loc = k.translate_path('special://logpath/kodi.log'), k.translate_path('special://logpath/kodi.old.log')
 		gears_clogpath = k.translate_path('special://home/addons/plugin.video.gears/resources/text/changelog.txt')
+		gears_log_loc = k.translate_path('special://logpath/gears.log')
 		self.add({'mode': 'show_text', 'heading': 'Changelog', 'file': gears_clogpath, 'font_size': 'large', 'isFolder': 'false'}, 'Changelog', 'lists')
 		self.add({'mode': 'show_text', 'heading': 'Kodi Log Viewer', 'file': log_loc, 'kodi_log': 'true', 'isFolder': 'false'}, 'Kodi Log Viewer', 'lists')
 		self.add({'mode': 'show_text', 'heading': 'Kodi Log Viewer (Old)', 'file': old_log_loc, 'kodi_log': 'true', 'isFolder': 'false'}, 'Kodi Log Viewer (Old)', 'lists')
 		self.add({'mode': 'upload_logfile', 'isFolder': 'false'}, 'Upload Kodi Log to Pastebin', 'lists')
+		if get_setting('gears.addon_debug') == 'true':
+			self.add({'mode': 'show_text', 'heading': 'Gears Debug Log', 'file': gears_log_loc, 'kodi_log': 'true', 'isFolder': 'false'}, '[COLOR lime]Gears Debug Log Viewer[/COLOR]', 'lists')
+			self.add({'mode': 'clear_gears_log', 'isFolder': 'false'}, '[COLOR lime]Clear Gears Debug Log[/COLOR]', 'settings')
 		self.end_directory()
 
 	def certifications(self):

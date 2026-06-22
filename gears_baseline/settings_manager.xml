@@ -44,7 +44,7 @@
                     <top>22</top>
                     <left>0</left>
                     <height>20</height>
-                    <font>font12</font> <!-- gears_26 -->
+                    <font>font_mini</font> <!-- gears_26 -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>center</aligny>
@@ -74,7 +74,7 @@
                         <width>390</width>
                         <height>85</height>
                         <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
-                        <font>font12</font> <!-- gears_26 -->
+                        <font>font_mini</font> <!-- gears_26 -->
                         <textcolor>FFCCCCCC</textcolor>
                         <aligny>center</aligny>
                     </control>
@@ -91,7 +91,7 @@
                         <width>390</width>
                         <height>85</height>
                         <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
-                        <font>font12</font> <!-- gears_26 -->
+                        <font>font_mini</font> <!-- gears_26 -->
                         <textcolor>FF000000</textcolor>
                         <aligny>center</aligny>
                         <scroll>Control.HasFocus(2000)</scroll>
@@ -150,7 +150,7 @@
                             <width>630</width>
                             <height>85</height>
                             <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
-                            <font>font12</font> <!-- gears_26 -->
+                            <font>font_mini</font> <!-- gears_26 -->
                             <textcolor>FFCCCCCC</textcolor>
                             <aligny>center</aligny>
                             <align>center</align>
@@ -179,7 +179,7 @@
                         <width>630</width>
                         <height>85</height>
                         <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
-                        <font>font12</font> <!-- gears_26 -->
+                        <font>font_mini</font> <!-- gears_26 -->
                         <textcolor>FFCCCCCC</textcolor>
                         <aligny>center</aligny>
                         <scroll>false</scroll>
@@ -218,7 +218,7 @@
                             <width>425</width>
                             <height>85</height>
                             <label>[B]...[/B]</label>
-                            <font>font12</font> <!-- gears_26 -->
+                            <font>font_mini</font> <!-- gears_26 -->
                             <textcolor>FFCCCCCC</textcolor>
                             <align>right</align>
                             <aligny>center</aligny>
@@ -231,7 +231,7 @@
                             <width>425</width>
                             <height>85</height>
                             <label>[UPPERCASE][B]$INFO[ListItem.Property(setting_value)][/B][/UPPERCASE]</label>
-                            <font>font12</font> <!-- gears_26 -->
+                            <font>font_mini</font> <!-- gears_26 -->
                             <textcolor>FFCCCCCC</textcolor>
                             <align>right</align>
                             <aligny>center</aligny>
@@ -255,7 +255,7 @@
                             <width>630</width>
                             <height>85</height>
                             <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
-                            <font>font12</font> <!-- gears_26 -->
+                            <font>font_mini</font> <!-- gears_26 -->
                             <textcolor>FFCCCCCC</textcolor>
                             <aligny>center</aligny>
                             <align>center</align>
@@ -286,7 +286,7 @@
                             <width>630</width>
                             <height>85</height>
                             <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
-                            <font>font12</font> <!-- gears_26 -->
+                            <font>font_mini</font> <!-- gears_26 -->
                             <textcolor>FF000000</textcolor>
                             <aligny>center</aligny>
                             <scroll>Control.HasFocus(2100)</scroll>
@@ -297,7 +297,7 @@
                             <width>630</width>
                             <height>85</height>
                             <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
-                            <font>font12</font> <!-- gears_26 -->
+                            <font>font_mini</font> <!-- gears_26 -->
                             <textcolor>FFCCCCCC</textcolor>
                             <aligny>center</aligny>
                             <scroll>false</scroll>
@@ -365,7 +365,7 @@
                                 <width>425</width>
                                 <height>85</height>
                                 <label>[B]...[/B]</label>
-                                <font>font12</font> <!-- gears_26 -->
+                                <font>font_mini</font> <!-- gears_26 -->
                                 <textcolor>FF000000</textcolor>
                                 <align>right</align>
                                 <aligny>center</aligny>
@@ -377,7 +377,7 @@
                                 <width>425</width>
                                 <height>85</height>
                                 <label>[B]...[/B]</label>
-                                <font>font12</font> <!-- gears_26 -->
+                                <font>font_mini</font> <!-- gears_26 -->
                                 <textcolor>FFCCCCCC</textcolor>
                                 <align>right</align>
                                 <aligny>center</aligny>
@@ -393,7 +393,7 @@
                                 <width>425</width>
                                 <height>85</height>
                                 <label>[UPPERCASE][B]$INFO[ListItem.Property(setting_value)][/B][/UPPERCASE]</label>
-                                <font>font12</font> <!-- gears_26 -->
+                                <font>font_mini</font> <!-- gears_26 -->
                                 <textcolor>FF000000</textcolor>
                                 <align>right</align>
                                 <aligny>center</aligny>
@@ -405,7 +405,7 @@
                                 <width>425</width>
                                 <height>85</height>
                                 <label>[UPPERCASE][B]$INFO[ListItem.Property(setting_value)][/B][/UPPERCASE]</label>
-                                <font>font12</font> <!-- gears_26 -->
+                                <font>font_mini</font> <!-- gears_26 -->
                                 <textcolor>FFCCCCCC</textcolor>
                                 <align>right</align>
                                 <aligny>center</aligny>
@@ -473,6 +473,15 @@
                           <property name="setting_value">$INFO[Window(10000).Property(gears.max_threads)]</property>
                           <property name="setting_description">Choose the maximum active concurrent threads gears will be limited to</property>
                           <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_numeric&amp;setting_id=max_threads)</onclick>
+                      </item>
+        <!-- Debug Logging -->
+                      <item>
+                          <visible>Container(2000).HasFocus(10)</visible>
+                          <property name="setting_label">Enable Debug Logging</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.addon_debug)]</property>
+                          <property name="setting_description">Write a detailed gears.log file to the Kodi log folder. View it via Tools &gt; Changelog &amp; Log Utils. Disable when not needed.</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=addon_debug)</onclick>
                       </item>
         <!-- Watched Indicators -->
                       <item>
@@ -675,6 +684,14 @@
                           <property name="setting_value">$INFO[Window(10000).Property(gears.ignore_articles)]</property>
                           <property name="setting_description">Enable this and gears will ignore leading words like "The", "A" when sorting lists</property>
                           <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=ignore_articles)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(30)</visible>
+                          <property name="setting_label">Trakt Lists - Auto-load A-Z (no Next Page)</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.trakt.lists.auto_load_az)]</property>
+                          <property name="setting_description">When enabled, opening a Trakt list (Watchlist, Collection, My Lists, user lists, etc.) loads the entire list at once in A-Z order instead of paging through it. Capped at 1000 items to keep the UI snappy. Article-stripped sort follows the "Ignore Articles when Sorting Lists" toggle above.</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=trakt.lists.auto_load_az)</onclick>
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(30)</visible>
@@ -1389,6 +1406,152 @@
                           <property name="setting_description">Open the External Scraper settings. The settings of the module chosen above will be opened</property>
                           <onclick>back</onclick>
                           <onclick>RunPlugin(plugin://plugin.video.gears/?mode=open_external_scraper_settings)</onclick>
+                      </item>
+		   <!-- EasyNews -->
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <property name="setting_label">EasyNews</property>
+                          <property name="setting_type">separator</property>
+                          <onclick>noop</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <property name="setting_label">Enable</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.provider.easynews)]</property>
+                          <property name="setting_description">Enable the use of your EasyNews account</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=provider.easynews)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <property name="setting_label">Login</property>
+                          <property name="setting_type">numeric</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews_user)]</property>
+                          <property name="setting_description">Enter the Login of your EasyNews account</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_string&amp;setting_id=easynews_user)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <property name="setting_label">Password</property>
+                          <property name="setting_type">numeric</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews_password)]</property>
+                          <property name="setting_description">Enter the Password of your EasyNews account</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_string&amp;setting_id=easynews_password)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Filter Results by Name</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.title_filter)]</property>
+                          <property name="setting_description">After EasyNews returns results, match filenames against the movie or episode title (and aliases). EasyNews search is already narrow (e.g. Movie Year or Show S01E05), so this often removes few extra results but helps when unrelated files slip through. Disable if valid links go missing. Search Width, Filter Languages, and Fallback Search Queries usually matter more for EasyNews</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=easynews.title_filter)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Filter Languages</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.filter_lang)]</property>
+                          <property name="setting_description">Enable this and Red Light will perform extra language filtering on your EasyNews results. Will help to limit incorrect results, but may also filter some relevant results</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=easynews.filter_lang)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Exclude Adult Results</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.exclude_adult)]</property>
+                          <property name="setting_description">Enable to request Safe Search filtering from EasyNews and exclude adult results from EasyNews queries.</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=easynews.exclude_adult)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.easynews.filter_lang),true)</visible>
+                          <property name="setting_label">    - Choose Languages To Include</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.lang_filters)]</property>
+                          <property name="setting_description">Choose which languages you wish to include in EasyNews results</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=set_language_filter_choice&amp;filter_setting_id=easynews.lang_filters&amp;multi_choice=true)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.easynews.filter_lang),true)</visible>
+                          <property name="setting_label">    - Include Unknown Language Results</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.lang_include_unknown)]</property>
+                          <property name="setting_description">When language filtering is enabled, keep files EasyNews does not report a language for. Disable to exclude them (strict filtering)</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=easynews.lang_include_unknown)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Refresh Credentials Each Request</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.refresh_credentials)]</property>
+                          <property name="setting_description">Reload your EasyNews username and password from Red Light settings before every Solr search and before resolving or downloading a file. Kodi normally keeps the login in memory for the session; enable this if you change your EasyNews password on the website, edit credentials in settings, or share a profile and want the next search to use the updated login without restarting Kodi. Expect a small extra delay per request when enabled</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=easynews.refresh_credentials)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Fallback Search Queries</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.fallback_search)]</property>
+                          <property name="setting_description">If the main Search Width queries return no files, run extra EasyNews searches using TMDB alternate titles (aliases). For TV: alias plus episode (e.g. Show S01E05) and alias plus season (Show S01). For movies: alias plus release year. Only queries not already tried are used. Helpful when EasyNews filenames use a different show name than TMDB. Usually unnecessary if Search Width is Broad, because Broad already searches aliases. Default is on</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=easynews.fallback_search)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Search Width</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.easynews.search_width_name)]</property>
+                          <property name="setting_description">How many EasyNews Solr searches to run per movie or episode. Results are merged and duplicates removed. Focused (fastest): one query only — Movie: Title Year (e.g. Dune 2021); TV: Title S01E05 (e.g. Breaking Bad S01E05). Balanced: Focused plus a wider query — Movie: title without year; TV: Title S01 (all episodes in that season on EasyNews). Broad (slowest, best recall): Balanced plus show or movie title only, then the same patterns for each TMDB alias. Broad pulls many unrelated files for short titles; keep Filter Results by Name enabled. More width means more API calls and a longer source search</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_from_list&amp;setting_id=easynews.search_width)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Check Before Full Search</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.check.easynews)]</property>
+                          <property name="setting_description">Query EasyNews early in the source search, before external torrent scrapers and the rest of the internal scrape list. The progress window can show EasyNews quality counts (4K, 1080p, etc.) while torrent scrapers are still running. If EasyNews returns results during this prescrape step, you may get playable links sooner instead of waiting for the full scrape to finish. Does not replace external scrapers — it runs EasyNews first, then the normal search continues. Often used in conjunction with Autoplay Result, below (when Check Before Full Search is enabled).</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=check.easynews)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.check.easynews),true)</visible>
+                          <property name="setting_label">    - Autoplay Result</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.autoplay.easynews)]</property>
+                          <property name="setting_description">Enable this and Red Light will Autoplay the top result found from EasyNews</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_boolean&amp;setting_id=autoplay.easynews)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(gears.provider.easynews),true)</visible>
+                          <visible>![String.IsEmpty(Window(10000).Property(gears.easynews_user)) + String.IsEmpty(Window(10000).Property(gears.easynews_password))]</visible>
+                          <property name="setting_label">Priority (Lower Number Equals Higher Priority)</property>
+                          <property name="setting_type">numeric</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(gears.en.priority)]</property>
+                          <property name="setting_description">Choose the order in which EasyNews results appear in relation to any other active accounts. The lower the number, the higher the sort order</property>
+                          <onclick>RunPlugin(plugin://plugin.video.gears/?mode=settings_manager.set_numeric&amp;setting_id=en.priority)</onclick>
                       </item>
         <!-- Real Debrid -->
                       <item>
@@ -2568,7 +2731,7 @@
                     <left>30</left>
                     <width>200</width>
                     <height>20</height>
-                    <font>font12</font> <!-- gears_26 -->
+                    <font>font_mini</font> <!-- gears_26 -->
                     <textcolor>FFCCCCCC</textcolor>
                     <label>[UPPERCASE][B]INFO: [/B][/UPPERCASE]</label>
                     <align>left</align>
@@ -2580,7 +2743,7 @@
                     <width>1530</width>
                     <height>70</height>
                     <control type="textbox">
-                        <font>font12</font> <!-- gears_26 -->
+                        <font>font_mini</font> <!-- gears_26 -->
                         <align>left</align>
                         <aligny>center</aligny>
                         <textcolor>FFCCCCCC</textcolor>
@@ -2589,7 +2752,7 @@
                         <visible>Control.HasFocus(2100)</visible>
                     </control>
                     <control type="textbox">
-                        <font>font12</font> <!-- gears_26 -->
+                        <font>font_mini</font> <!-- gears_26 -->
                         <align>left</align>
                         <aligny>center</aligny>
                         <textcolor>FFCCCCCC</textcolor>

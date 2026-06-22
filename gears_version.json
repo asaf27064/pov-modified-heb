@@ -1,6 +1,6 @@
 {
-    "version": "2.0.9",
-    "compatible_gears": "2.0.7",
-    "min_gears": "2.0.7",
-    "changelog": "Subscription banner: add 4-digit year to expiration date (DD/MM/YYYY) + insert RLM (U+200F) before the number in the heading so it displays adjacent to its Hebrew noun instead of being pulled into the leading LTR run."
+    "version": "2.1.0",
+    "compatible_gears": "2.2.2",
+    "min_gears": "2.2.2",
+    "changelog": "Rebased Hebrew overlay onto Gears 2.2.2. TorBox now uses upstream's native QR/device flow (dropped our patch). All other Hebrew patches re-applied via clean 3-way merge."
 }

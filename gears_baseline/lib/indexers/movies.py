@@ -42,7 +42,7 @@ class Movies:
 			if self.action in self.personal: var_module, import_function = self.personal[self.action]
 			else: var_module, import_function = 'apis.%s_api' % self.action.split('_')[0], self.action
 			try: function = manual_function_import(var_module, import_function)
-			except: pass
+			except Exception as _e: kodi_utils.logger('movies.fetch_list.import', 'IMPORT FAILED action=%s module=%s err=%s' % (self.action, var_module, _e))
 			if page_no == 1 and not self.is_external: kodi_utils.set_property('gears.exit_params', kodi_utils.folder_path())
 			if self.action in self.main:
 				data = function(page_no)
@@ -108,7 +108,7 @@ class Movies:
 			if self.new_page and not self.widget_hide_next_page:
 								self.new_page.update({'mode': 'build_movie_list', 'action': self.action, 'category_name': self.category_name})
 								kodi_utils.add_dir(handle, self.new_page, 'Next Page (%s) >>' % self.new_page['new_page'], 'nextpage', kodi_utils.get_icon('nextpage_landscape'))
-		except: pass
+		except Exception as _e: kodi_utils.logger('movies.fetch_list', 'FAILED action=%s err=%s' % (self.action, _e))
 		kodi_utils.set_content(handle, 'movies')
 		kodi_utils.set_category(handle, self.category_name)
 		kodi_utils.end_directory(handle, cacheToDisc=False if self.is_external else True)

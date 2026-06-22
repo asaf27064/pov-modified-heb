@@ -36,6 +36,12 @@ class SettingsCache:
 	def set(self, setting_id, setting_value=None):
 		dbcon = connect_database('settings_db')
 		setting_info = default_setting_values(setting_id)
+		# FIX: avoid 'NoneType' object is not subscriptable when a runtime-only setting
+		# (e.g. trakt.last_refresh_failed_at) isn't registered in default_settings().
+		# Without this guard, set_setting() crashes its caller -- which is how the Trakt
+		# refresh cooldown was silently failing and causing /oauth/token 429 storms.
+		if setting_info is None:
+			setting_info = {'setting_type': 'string', 'setting_default': ''}
 		setting_type, setting_default = setting_info['setting_type'], setting_info['setting_default']
 		if setting_value is None: setting_value = setting_default
 		dbcon.execute('INSERT OR REPLACE INTO settings VALUES (?, ?, ?, ?)', (setting_id, setting_type, setting_default, setting_value))
@@ -79,7 +85,10 @@ def get_setting(setting_id, fallback=''):
 def get_many(settings_list):
 	return settings_cache.get_many(settings_list)
 
-def sync_settings(params={}):
+PRESERVED_RUNTIME_SETTINGS = {'trakt.last_refresh_failed_at'}
+
+def sync_settings(params=None):
+	if params is None: params = {}
 	silent = params.get('silent', 'true') == 'true'
 	insert_list = []
 	insert_list_append = insert_list.append
@@ -90,7 +99,7 @@ def sync_settings(params={}):
 	defaultsettings_ids.extend(['%s_name' % i for i in defaultsettings_names])
 	try:
 		c_settings = currentsettings.items()
-		obsoletesettings_ids = [k for k, v in c_settings if not k in defaultsettings_ids]
+		obsoletesettings_ids = [k for k, v in c_settings if not k in defaultsettings_ids and k not in PRESERVED_RUNTIME_SETTINGS]
 		if obsoletesettings_ids:
 			for item in obsoletesettings_ids: settings_cache.remove_setting(item)
 	except: pass
@@ -120,7 +129,7 @@ def set_default(setting_ids):
 def set_boolean(params):
 	boolean_dict = {'true': 'false', 'false': 'true'}
 	setting = params['setting_id']
-	set_setting(setting, boolean_dict[get_setting('gears.%s' % setting)])
+	set_setting(setting, boolean_dict.get(get_setting('gears.%s' % setting), 'true'))
 
 def set_string(params):
 	current_value = get_setting('gears.%s' % params['setting_id'])
@@ -195,6 +204,7 @@ def default_settings():
 #===============================================================================#
 #==================== General
 {'setting_id': 'auto_start_gears', 'setting_type': 'boolean', 'setting_default': 'false'},
+{'setting_id': 'addon_debug', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'addon_icon_choice', 'setting_type': 'string', 'setting_default': 'icon.png'},
 {'setting_id': 'default_addon_fanart', 'setting_type': 'path', 'setting_default': kodi_utils.addon_fanart(), 'browse_mode': '2'},
 {'setting_id': 'limit_concurrent_threads', 'setting_type': 'boolean', 'setting_default': 'false'},
@@ -318,7 +328,7 @@ def default_settings():
 {'setting_id': 'trakt.client', 'setting_type': 'string', 'setting_default': '19849909a0f8c9dc632bc5f5c7ccafd19f3e452e2e44fee05b83fd5dc1e77675'},
 {'setting_id': 'trakt.secret', 'setting_type': 'string', 'setting_default': 'b5fcd7cb5d9bb963784d11bbf8535bc0d25d46225016191eb48e50792d2155c0'},
 #==================== TMDb API
-{'setting_id': 'tmdb_api', 'setting_type': 'string', 'setting_default': '653bb8af90162bd98fc7ee32bcbbfb3d'},
+{'setting_id': 'tmdb_api', 'setting_type': 'string', 'setting_default': '2fec88ea9c5507165266b6e1f8eaaa92'},
 #==================== TMDb Lists
 {'setting_id': 'tmdb.token', 'setting_type': 'string', 'setting_default': 'empty_setting'},
 {'setting_id': 'tmdb.account_id', 'setting_type': 'string', 'setting_default': 'empty_setting'},
@@ -522,6 +532,8 @@ def default_settings():
 {'setting_id': 'trakt.expires', 'setting_type': 'string', 'setting_default': '0'},
 {'setting_id': 'trakt.refresh', 'setting_type': 'string', 'setting_default': '0'},
 {'setting_id': 'trakt.token', 'setting_type': 'string', 'setting_default': '0'},
+{'setting_id': 'trakt.last_refresh_failed_at', 'setting_type': 'string', 'setting_default': '0'},
+{'setting_id': 'trakt.lists.auto_load_az', 'setting_type': 'boolean', 'setting_default': 'true'},
 {'setting_id': 'tmdblist.list_sort', 'setting_type': 'string', 'setting_default': '0'},
 {'setting_id': 'tmdblist.list_sort_name', 'setting_type': 'string', 'setting_default': 'Title'},
 {'setting_id': 'personal_list.list_sort', 'setting_type': 'string', 'setting_default': '0'},

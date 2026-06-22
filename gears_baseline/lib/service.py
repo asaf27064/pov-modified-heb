@@ -63,8 +63,8 @@ class CustomFonts:
 	def run(self):
 		kodi_utils.logger('gears', 'CustomFonts Service Starting')
 		from windows.base_window import FontUtils
-		monitor, player = kodi_utils.kodi_monitor(), kodi_utils.kodi_player()
-		wait_for_abort, is_playing = monitor.waitForAbort, player.isPlayingVideo
+		monitor = kodi_utils.kodi_monitor()
+		wait_for_abort = monitor.waitForAbort
 		kodi_utils.clear_property(current_skin_prop)
 		font_utils = FontUtils()
 		while not monitor.abortRequested():
@@ -72,19 +72,20 @@ class CustomFonts:
 			wait_for_abort(20)
 		try: del monitor
 		except: pass
-		try: del player
-		except: pass
 		return kodi_utils.logger('gears', 'CustomFonts Service Finished')
 
 class TraktMonitor:
 	def run(self):
 		kodi_utils.logger('gears', 'TraktMonitor Service Starting')
 		from apis.trakt_api import trakt_sync_activities
-		from modules.settings import trakt_sync_interval
+		from modules.settings import trakt_sync_interval, trakt_user_active
 		monitor, player = kodi_utils.kodi_monitor(), kodi_utils.kodi_player()
 		wait_for_abort, is_playing = monitor.waitForAbort, player.isPlayingVideo
 		while not monitor.abortRequested():
 			while is_playing() or kodi_utils.get_property(pause_services_prop) == 'true': wait_for_abort(10)
+			if not trakt_user_active():
+				wait_for_abort(1800)
+				continue
 			wait_time = 1800
 			try:
 				sync_interval, wait_time = trakt_sync_interval()
@@ -112,11 +113,9 @@ class UpdateCheck:
 		end_pause = time() + update_delay()
 		monitor, player = kodi_utils.kodi_monitor(), kodi_utils.kodi_player()
 		wait_for_abort, is_playing = monitor.waitForAbort, player.isPlayingVideo
-		while not monitor.abortRequested():
-			while time() < end_pause: wait_for_abort(1)
-			while kodi_utils.get_property(pause_services_prop) == 'true' or is_playing(): wait_for_abort(1)
-			update_check(update_action())
-			break
+		while time() < end_pause: wait_for_abort(1)
+		while kodi_utils.get_property(pause_services_prop) == 'true' or is_playing(): wait_for_abort(1)
+		update_check(update_action())
 		kodi_utils.set_property(firstrun_update_prop, 'true')
 		try: del monitor
 		except: pass

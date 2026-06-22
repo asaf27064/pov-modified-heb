@@ -3,8 +3,7 @@ import datetime
 from caches.meta_cache import cache_function
 from caches.lists_cache import lists_cache_object
 from modules.settings import get_meta_filter, tmdb_api_key, lists_cache_duraton
-from modules.kodi_utils import make_session, remove_keys
-# from modules.kodi_utils import logger
+from modules.kodi_utils import make_session, remove_keys, logger
 
 session = make_session('https://api.themoviedb.org/3')
 
@@ -588,7 +587,16 @@ def get_reviews_data(media_type, tmdb_id):
 	return cache_function(builder, string, url, json=False, expiration=168)
 
 def get_data(url):
-	data = get_tmdb(url).json()
+	response = get_tmdb(url)
+	if response is None:
+		logger('tmdb.get_data', 'ERROR: network request failed (no response object)')
+		return None
+	data = response.json()
+	if 'results' not in data:
+		logger('tmdb.get_data', 'ERROR: http=%s tmdb_code=%s msg=%s' % (response.status_code, data.get('status_code', '?'), data.get('status_message', '?')))
+		from modules.kodi_utils import notification
+		notification('TMDb Error %s: %s' % (data.get('status_code', '?'), data.get('status_message', 'Unknown error')))
+		return None
 	data['results'] = [remove_keys(i, tmdb_dict_removals()) for i in data['results']]
 	return data
 
