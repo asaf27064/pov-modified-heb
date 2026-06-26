@@ -1,6 +1,6 @@
 {
-    "version": "0.3.0",
+    "version": "0.4.0",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "More English sources (Podnapisi + wider OpenSubtitles), wizard is sole updater, opt-in failure telemetry, pool /stats + moderation"
+    "changelog": "Better Hebrew gender via dialogue-derived character analysis (Pass-0, on by default, additive/fail-open); optional Fast mode (off by default). Quality unchanged when both off."
 }
