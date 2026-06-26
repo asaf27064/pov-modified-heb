@@ -1,6 +1,6 @@
 {
-    "version": "0.4.1",
+    "version": "0.4.2",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "HOTFIX: subtitle search no longer killed by Kodi — providers run in parallel with a hard time budget (a slow/unreachable Podnapisi can no longer stall the search). Restores AI translate + pool."
+    "changelog": "Dropped Podnapisi; added subdl.com as an optional English source (set a free subdl API key in settings). subsource is Cloudflare-protected and not usable from Kodi. Search stays parallel + time-bounded."
 }
