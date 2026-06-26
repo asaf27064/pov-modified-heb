@@ -1,0 +1,107 @@
+name: Validate Release Zips
+
+# Runs on every push that touches a shipped zip or its version json. The
+# overlay SOURCE lives on the maintainer's machine (not in this repo), so CI
+# can't rebuild the zips -- but it CAN guard against the ways a hand-built
+# release breaks for users: a version.json that disagrees with the zip, the
+# maintainer-only cloudflare/ folder leaking into the AI Subs add-on, stray
+# .pyc files, or a corrupt/empty archive. A red check here = do not ship.
+
+on:
+  push:
+    paths:
+      - '*.zip'
+      - '*_version.json'
+      - 'version.json'
+      - '.github/workflows/validate-releases.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Validate zips + version consistency
+        run: |
+          python3 - <<'PY'
+          import json, os, re, sys, zipfile
+
+          errors = []
+          def err(m): errors.append(m); print('FAIL:', m)
+          def ok(m):  print('ok  :', m)
+
+          def load_json(path):
+              if not os.path.exists(path): return None
+              with open(path, encoding='utf-8') as f: return json.load(f)
+
+          def zip_ok(path):
+              if not os.path.exists(path): err('%s missing' % path); return None
+              if os.path.getsize(path) == 0: err('%s is empty' % path); return None
+              try:
+                  zf = zipfile.ZipFile(path)
+              except Exception as e:
+                  err('%s not a valid zip: %s' % (path, e)); return None
+              bad = zf.testzip()
+              if bad: err('%s corrupt member: %s' % (path, bad)); return None
+              ok('%s opens (%d entries)' % (path, len(zf.namelist())))
+              return zf
+
+          def read_member(zf, name):
+              try: return zf.read(name).decode('utf-8', 'replace')
+              except KeyError: return None
+
+          def addon_version(zf, addon_id):
+              for n in zf.namelist():
+                  if n.endswith('%s/addon.xml' % addon_id) or n == 'addon.xml':
+                      txt = zf.read(n).decode('utf-8', 'replace')
+                      m = re.search(r'version="([0-9][^"]*)"', txt.split('>',1)[-1] if '<?xml' in txt[:20] else txt)
+                      # be robust: find the addon tag's version
+                      m = re.search(r'<addon\b[^>]*version="([^"]+)"', txt)
+                      return m.group(1) if m else None
+              return None
+
+          # ---- gearsai (AI Subs) ----
+          gj = load_json('gearsai_version.json')
+          zf = zip_ok('gearsai_subtitles.zip')
+          if zf:
+              leaked = [n for n in zf.namelist() if '/cloudflare/' in n or n.endswith('.pyc')]
+              if leaked: err('gearsai zip leaks excluded files: %s' % leaked[:3])
+              else: ok('gearsai zip has no cloudflare/ or .pyc')
+              av = addon_version(zf, 'service.subtitles.gearsai')
+              if gj and av and gj.get('version') != av:
+                  err('gearsai version mismatch: json=%s addon.xml=%s' % (gj.get('version'), av))
+              elif av: ok('gearsai version %s matches json' % av)
+
+          # ---- gears hebrew overlay ----
+          gv = load_json('gears_version.json')
+          zf = zip_ok('gears_hebrew_subtitles.zip')
+          if zf and gv:
+              vt = read_member(zf, 'version.txt')
+              if vt is None:
+                  # version.txt may be nested; search
+                  cand = [n for n in zf.namelist() if n.endswith('version.txt')]
+                  vt = zf.read(cand[0]).decode('utf-8','replace') if cand else None
+              if vt is None:
+                  err('gears_hebrew zip has no version.txt')
+              elif vt.strip() != str(gv.get('version','')).strip():
+                  err('gears overlay version.txt=%s != json=%s' % (vt.strip(), gv.get('version')))
+              else:
+                  ok('gears overlay version.txt matches json (%s)' % vt.strip())
+
+          # ---- remaining zips: just structural validity ----
+          for z in ('pov_hebrew_subtitles.zip', 'skin_hebrew_files.zip'):
+              if os.path.exists(z): zip_ok(z)
+
+          # ---- json files parse ----
+          for j in ('version.json', 'skin_version.json'):
+              try:
+                  load_json(j); ok('%s parses' % j) if os.path.exists(j) else None
+              except Exception as e:
+                  err('%s invalid json: %s' % (j, e))
+
+          if errors:
+              print('\n%d problem(s) -- release is NOT safe to ship.' % len(errors))
+              sys.exit(1)
+          print('\nAll release zips valid and consistent.')
+          PY

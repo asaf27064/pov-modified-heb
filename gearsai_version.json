@@ -1,6 +1,6 @@
 {
-    "version": "0.2.1",
+    "version": "0.3.0",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Self-update support: the add-on now updates itself from the repo (no full build reinstall). Plus AI Hebrew translation, community pool, free re-sync, DarkSubs-deferral."
+    "changelog": "More English sources (Podnapisi + wider OpenSubtitles), wizard is sole updater, opt-in failure telemetry, pool /stats + moderation"
 }
