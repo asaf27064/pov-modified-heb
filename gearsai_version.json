@@ -1,6 +1,6 @@
 {
-    "version": "0.5.0",
+    "version": "0.5.1",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "ARVIO-inspired: (1) Groq Llama-3.3-70B as an optional very-fast model (set a free Groq key); (2) JSON-mode RESCUE when SRT parse fails (rescue-only, normal path unchanged); (3) Progressive subtitles — Hebrew appears within seconds and fills in as it translates (default on, identical final text). Quality of the default path unchanged."
+    "changelog": "Settings labels fix: the new settings format needs numeric string IDs (plain text rendered BLANK). Converted all labels to IDs + populated bilingual strings.po (full Hebrew + English fallback). Settings now show proper Hebrew text."
 }
