@@ -1,6 +1,6 @@
 {
-    "version": "0.6.1",
+    "version": "0.6.2",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Multi-key rotation: add 'Extra Gemini keys' (comma-separated, from other free accounts). When a key's DAILY quota runs out, we now rotate to the next KEY on the SAME (best) model, and only drop to a weaker model once every key is exhausted on it. Bad keys are skipped. 3 keys = 3x best-model quota before any downgrade."
+    "changelog": "AI translation now works OUT OF THE BOX: 3 baked community Gemini keys (free-tier) used when the user hasn't set their own; they rotate on the best model (Pressure-style mid-movie fallback avoided), and the pool means each title is translated once then shared. A user's own key always takes precedence."
 }
