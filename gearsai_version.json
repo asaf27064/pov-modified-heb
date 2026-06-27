@@ -1,6 +1,6 @@
 {
-    "version": "0.5.5",
+    "version": "0.6.0",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Pool model label fix: a translation is now recorded by the PREDOMINANT model (the one that did the most lines), not whichever model happened to do the last chunk after a mid-movie daily-quota fallback. So a sub mostly made by 2.5 Flash that fell back to a lite model for the tail shows 2.5 Flash."
+    "changelog": "English-source picker + SDH + re-translate: (1) new setting 'Ask which English to translate' (default OFF = auto) -> picker dialog with best-match first, SDH labelled. (2) SDH/hearing-impaired subs now flagged + labelled everywhere (speaker tags = better gender; prompt already drops the [..] noise but uses tags for gender). (3) 're-translate (ignore cache)' row in the subtitle dialog."
 }
