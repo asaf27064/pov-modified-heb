@@ -1,6 +1,6 @@
 {
-    "version": "0.4.3",
+    "version": "0.5.0",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Pool fix: apply now forces showSubtitles (was loading but not displaying); pool checked FIRST (instant, before the DarkSubs wait). subdl key baked in (works out of the box). Subtitle window now shows the provider per row + lists ready-made community-pool subs as instant rows."
+    "changelog": "ARVIO-inspired: (1) Groq Llama-3.3-70B as an optional very-fast model (set a free Groq key); (2) JSON-mode RESCUE when SRT parse fails (rescue-only, normal path unchanged); (3) Progressive subtitles — Hebrew appears within seconds and fills in as it translates (default on, identical final text). Quality of the default path unchanged."
 }
