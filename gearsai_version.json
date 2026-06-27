@@ -1,6 +1,6 @@
 {
-    "version": "0.6.0",
+    "version": "0.6.1",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "English-source picker + SDH + re-translate: (1) new setting 'Ask which English to translate' (default OFF = auto) -> picker dialog with best-match first, SDH labelled. (2) SDH/hearing-impaired subs now flagged + labelled everywhere (speaker tags = better gender; prompt already drops the [..] noise but uses tags for gender). (3) 're-translate (ignore cache)' row in the subtitle dialog."
+    "changelog": "Multi-key rotation: add 'Extra Gemini keys' (comma-separated, from other free accounts). When a key's DAILY quota runs out, we now rotate to the next KEY on the SAME (best) model, and only drop to a weaker model once every key is exhausted on it. Bad keys are skipped. 3 keys = 3x best-model quota before any downgrade."
 }
