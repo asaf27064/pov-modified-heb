@@ -1,6 +1,6 @@
 {
-    "version": "0.5.1",
+    "version": "0.5.2",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Settings labels fix: the new settings format needs numeric string IDs (plain text rendered BLANK). Converted all labels to IDs + populated bilingual strings.po (full Hebrew + English fallback). Settings now show proper Hebrew text."
+    "changelog": "Settings audit/fixes: removed dead 'auto_update_self' toggle (did nothing); made ALL settings visible (were hidden behind Kodi settings-levels); model=Groq with no Groq key now leads with the quality default (2.5 Flash) instead of a lite model. Every other setting verified wired correctly."
 }
