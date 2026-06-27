@@ -1,6 +1,6 @@
 {
-    "version": "0.4.2",
+    "version": "0.4.3",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Dropped Podnapisi; added subdl.com as an optional English source (set a free subdl API key in settings). subsource is Cloudflare-protected and not usable from Kodi. Search stays parallel + time-bounded."
+    "changelog": "Pool fix: apply now forces showSubtitles (was loading but not displaying); pool checked FIRST (instant, before the DarkSubs wait). subdl key baked in (works out of the box). Subtitle window now shows the provider per row + lists ready-made community-pool subs as instant rows."
 }
