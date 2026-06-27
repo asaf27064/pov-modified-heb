@@ -1,6 +1,6 @@
 {
-    "version": "0.5.3",
+    "version": "0.5.4",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Settings action buttons fix: Test connection / Show usage / Pair-QR / Test pool / Update did NOTHING because the addon is a subtitle module (no plugin:// route), so RunPlugin failed. Switched them to RunScript(default.py,<action>) + made arg parsing handle both invocation paths."
+    "changelog": "Added 'Show community pool' button in Settings -> Community pool: shows totals, top titles, and recent additions inside Kodi (same data as the web /stats dashboard)."
 }
