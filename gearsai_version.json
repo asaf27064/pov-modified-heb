@@ -1,6 +1,6 @@
 {
-    "version": "0.6.2",
+    "version": "0.6.3",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "AI translation now works OUT OF THE BOX: 3 baked community Gemini keys (free-tier) used when the user hasn't set their own; they rotate on the best model (Pressure-style mid-movie fallback avoided), and the pool means each title is translated once then shared. A user's own key always takes precedence."
+    "changelog": "Subtitle rows: concise, key-info-first labels (match% · provider · SDH · release) with language label (renders in a line like DarkSubs, no long scroll). Episode fix: series now strongly prefer the EXACT episode and push season packs to the bottom (match.rank_candidates) -- fixes picking a whole-season subdl pack. Removed baked keys (the supplied AQ. values are OAuth tokens, not API keys -> 401)."
 }
