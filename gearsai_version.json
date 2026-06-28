@@ -1,6 +1,6 @@
 {
-    "version": "0.6.6",
+    "version": "0.6.7",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Translation key order: your own key is tried first, then the community keys (server-side proxy) as fallback. Works out of the box with no key."
+    "changelog": "Auto-translate detection fix: now defers to a Hebrew sub DarkSubs downloaded even if it didn't switch to it (scans available subtitle streams, not just the showing one), and enables it for you. Longer DarkSubs grace (30s). Turn auto-AI off entirely in settings if you prefer."
 }
