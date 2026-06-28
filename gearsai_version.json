@@ -1,6 +1,6 @@
 {
-    "version": "0.6.3",
+    "version": "0.6.4",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Subtitle rows: concise, key-info-first labels (match% · provider · SDH · release) with language label (renders in a line like DarkSubs, no long scroll). Episode fix: series now strongly prefer the EXACT episode and push season packs to the bottom (match.rank_candidates) -- fixes picking a whole-season subdl pack. Removed baked keys (the supplied AQ. values are OAuth tokens, not API keys -> 401)."
+    "changelog": "Security: removed the leaked key prefix from a code comment (real keys were already removed in 0.6.3). Current build contains NO credentials."
 }
