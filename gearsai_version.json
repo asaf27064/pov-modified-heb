@@ -1,6 +1,6 @@
 {
-    "version": "0.6.4",
+    "version": "0.6.5",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Security: removed the leaked key prefix from a code comment (real keys were already removed in 0.6.3). Current build contains NO credentials."
+    "changelog": "Out-of-the-box translation now routes through the community Worker proxy (Gemini keys held server-side, never in the addon). Users with their own key are unaffected."
 }
