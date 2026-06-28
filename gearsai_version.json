@@ -1,6 +1,6 @@
 {
-    "version": "0.6.5",
+    "version": "0.6.6",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Out-of-the-box translation now routes through the community Worker proxy (Gemini keys held server-side, never in the addon). Users with their own key are unaffected."
+    "changelog": "Translation key order: your own key is tried first, then the community keys (server-side proxy) as fallback. Works out of the box with no key."
 }
