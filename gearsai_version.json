@@ -1,6 +1,6 @@
 {
-    "version": "0.6.7",
+    "version": "0.7.0",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Auto-translate detection fix: now defers to a Hebrew sub DarkSubs downloaded even if it didn't switch to it (scans available subtitle streams, not just the showing one), and enables it for you. Longer DarkSubs grace (30s). Turn auto-AI off entirely in settings if you prefer."
+    "changelog": "Option 1 (stage 1): unified Hebrew dialog now also lists human subs from Wizdom + Ktuvit (baked credentials), alongside community pool + AI. Fail-safe: provider errors fall back to the existing pool/AI rows. SRT->ASS + custom windows next."
 }
