@@ -1,6 +1,6 @@
 {
-    "version": "0.8.4",
+    "version": "0.8.5",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Unified Hebrew window redesign: flat list ranked by match%, with provider column, colored match% (teal/green/gray tiers), sync + SDH badges, and a highlighted recommended row -- matching the agreed design."
+    "changelog": "Window A: name column widened + marquee-scrolls full name on focus; providers now searched in parallel (much faster open). Window B added: OSD button opens a quick control panel (current sub, choose subtitle -> A, sync, turn off)."
 }
