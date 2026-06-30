@@ -1,6 +1,6 @@
 {
-    "version": "0.8.0",
+    "version": "0.8.1",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Option 1 (windows): unified Hebrew subtitle window (OSD button 'כתוביות עברית MasterKodi') -- one ranked list of community pool + Wizdom + Ktuvit human subs, applied on pick. Custom WindowXMLDialog. Skip-intro + provider engine included."
+    "changelog": "Fix: 0.7.0/0.8.0 accidentally overwrote gearsai's own cache.py with All Subs Plus's, crashing the addon on import (AI Subs + the OSD window both failed). Restored gearsai's cache; the provider client now uses asp_cache. Everything imports cleanly again."
 }
