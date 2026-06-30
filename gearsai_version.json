@@ -1,6 +1,6 @@
 {
-    "version": "0.9.1",
+    "version": "0.9.2",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Auto-translate now trusts the source screen: when Gears' source window found Hebrew (Ktuvit/Wizdom), AI translation is skipped entirely -- DarkSubs applies the human sub. AI fires only when the source screen confirmed there's no Hebrew at all."
+    "changelog": "Cleaner subtitle rows: removed emoji that rendered as boxes in Kodi's dialog. Rate-limit fix: lowered parallel chunks 4->2 so full-episode translation stays under the shared free-tier per-minute limit ('too many requests')."
 }
