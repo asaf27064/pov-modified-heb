@@ -1,6 +1,6 @@
 {
-    "version": "0.8.1",
+    "version": "0.8.2",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Fix: 0.7.0/0.8.0 accidentally overwrote gearsai's own cache.py with All Subs Plus's, crashing the addon on import (AI Subs + the OSD window both failed). Restored gearsai's cache; the provider client now uses asp_cache. Everything imports cleanly again."
+    "changelog": "Fix: the copied Wizdom/Ktuvit clients called xbmcaddon.Addon() with no id (failed outside their original addon -> 'no valid addon id', empty results). Now pass the gearsai id explicitly, so the unified Hebrew window + dialog actually find Wizdom/Ktuvit subs."
 }
