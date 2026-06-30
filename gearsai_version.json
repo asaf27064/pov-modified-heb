@@ -1,6 +1,6 @@
 {
-    "version": "0.7.0",
+    "version": "0.8.0",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Option 1 (stage 1): unified Hebrew dialog now also lists human subs from Wizdom + Ktuvit (baked credentials), alongside community pool + AI. Fail-safe: provider errors fall back to the existing pool/AI rows. SRT->ASS + custom windows next."
+    "changelog": "Option 1 (windows): unified Hebrew subtitle window (OSD button 'כתוביות עברית MasterKodi') -- one ranked list of community pool + Wizdom + Ktuvit human subs, applied on pick. Custom WindowXMLDialog. Skip-intro + provider engine included."
 }
