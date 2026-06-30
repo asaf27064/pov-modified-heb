@@ -1,6 +1,6 @@
 {
-    "version": "0.9.0",
+    "version": "0.9.1",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Reverted the DarkSubs-copy experiment. AI Subs restored to its clean translate+pool+AI addon (no copied providers, no custom windows). The OSD subtitle button opens DarkSubs again. Skip Intro + Next Episode kept."
+    "changelog": "Auto-translate now trusts the source screen: when Gears' source window found Hebrew (Ktuvit/Wizdom), AI translation is skipped entirely -- DarkSubs applies the human sub. AI fires only when the source screen confirmed there's no Hebrew at all."
 }
