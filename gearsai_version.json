@@ -1,6 +1,6 @@
 {
-    "version": "0.8.3",
+    "version": "0.8.4",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Fix: myLogger.py (imported by Wizdom+Ktuvit) + srt2ass + subscene called Addon() with no id at import, failing in gearsai's context -> 'no valid addon id', empty Hebrew results. All now use the gearsai id. Wizdom/Ktuvit search works in the unified window now."
+    "changelog": "Unified Hebrew window redesign: flat list ranked by match%, with provider column, colored match% (teal/green/gray tiers), sync + SDH badges, and a highlighted recommended row -- matching the agreed design."
 }
