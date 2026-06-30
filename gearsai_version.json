@@ -1,6 +1,6 @@
 {
-    "version": "0.8.5",
+    "version": "0.8.6",
     "addon_id": "service.subtitles.gearsai",
     "name": "MasterKodi AI Subs",
-    "changelog": "Window A: name column widened + marquee-scrolls full name on focus; providers now searched in parallel (much faster open). Window B added: OSD button opens a quick control panel (current sub, choose subtitle -> A, sync, turn off)."
+    "changelog": "Windows A+B visual upgrade toward the mockups: rounded rows + panels, highlighted recommended row with a מומלץ pill, colored match%/provider, rounded buttons, teal accenting."
 }
