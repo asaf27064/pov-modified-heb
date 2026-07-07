@@ -1,6 +1,6 @@
 {
-  "version": "1.0.10",
+  "version": "1.0.11",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Community pool now wired into AI translation: before translating it checks the shared pool for a ready Hebrew AI translation (instant, free, no quota - works even without a key), and after translating it shares the result back so the next user gets it free. Toggle under 'מאגר קהילתי'."
+  "changelog": "Code cleanup: removed unused leftover modules from the DarkSubs fork (kodirdil, pair, progress_overlay, resync, selfupdate, tmdb) and archived old provider copies. No behavior change - all were dead code with zero references."
 }
