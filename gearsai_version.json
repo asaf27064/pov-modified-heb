@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "MasterKodi AI Subs is now a full fork of DarkSubs (Ktuvit/Wizdom/OpenSubtitles/Telegram + the subtitle window) with an added 'AI translate with Gemini' option. Original DarkSubs disabled to avoid duplicate auto-download."
+  "changelog": "Prefer text (.srt) subtitles over image-based VobSub (.idx/.sup) so subs render crisp with your Kodi font instead of a blurry baked-in one."
 }
