@@ -1,6 +1,6 @@
 {
-  "version": "1.0.9",
+  "version": "1.0.10",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Added subdl.com as an extra English source in the unified results, so DarkSubs ranks it alongside OpenSubtitles/YIFY/etc. and picks the best-matching English sub for AI translation. Best-possible source selection for the Gemini auto-translate."
+  "changelog": "Community pool now wired into AI translation: before translating it checks the shared pool for a ready Hebrew AI translation (instant, free, no quota - works even without a key), and after translating it shares the result back so the next user gets it free. Toggle under 'מאגר קהילתי'."
 }
