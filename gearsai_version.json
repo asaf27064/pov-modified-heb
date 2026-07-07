@@ -1,6 +1,6 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "VobSub fix: Ktuvit 'idx in zip' image subtitles (blurry, wrong font, mis-tagged as English, often didn't render) are now skipped whenever a real text subtitle exists, and a VobSub .sub is never corrupted by text conversion. Also removes the long delay those binary subs caused."
+  "changelog": "OpenSubtitles fix: it was returning nothing (crashing) because the remote API-key list went dead. Now it falls back to baked working keys, so OpenSubtitles results (incl. Hebrew) appear again like they do in All Subs Plus."
 }
