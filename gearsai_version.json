@@ -1,6 +1,6 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "OpenSubtitles fix: it was returning nothing (crashing) because the remote API-key list went dead. Now it falls back to baked working keys, so OpenSubtitles results (incl. Hebrew) appear again like they do in All Subs Plus."
+  "changelog": "Subtitle window now shows ALL results sorted by match% (nothing hidden, including VobSub). Auto-download still prefers a real text (.srt) subtitle over image-based VobSub/PGS even when the image one matches better."
 }
