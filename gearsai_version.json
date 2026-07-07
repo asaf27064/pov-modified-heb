@@ -1,6 +1,6 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.9",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "AI translation now integrated into DarkSubs' auto-translate: when no Hebrew subtitle exists, it downloads the best-matching English sub and translates it with our Gemini engine (gender-aware) instead of Google. Set 'מקור תרגום' = MasterKodi AI (Gemini). Falls back to Google if AI is unavailable. No conflict with Hebrew sources - only runs when there really is no Hebrew."
+  "changelog": "Added subdl.com as an extra English source in the unified results, so DarkSubs ranks it alongside OpenSubtitles/YIFY/etc. and picks the best-matching English sub for AI translation. Best-possible source selection for the Gemini auto-translate."
 }
