@@ -1,6 +1,6 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Encoding fix: detect subtitle encoding instead of always assuming Windows-Hebrew (no more garbled UTF-8 subs). Ktuvit login now retries so a transient failure isn't cached and silently breaking downloads."
+  "changelog": "VobSub fix: Ktuvit 'idx in zip' image subtitles (blurry, wrong font, mis-tagged as English, often didn't render) are now skipped whenever a real text subtitle exists, and a VobSub .sub is never corrupted by text conversion. Also removes the long delay those binary subs caused."
 }
