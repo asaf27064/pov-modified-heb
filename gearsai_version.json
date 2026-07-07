@@ -1,6 +1,6 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Ktuvit reliability: guard error/quota responses (no more phantom 'downloaded' that never applied), back off ~0.8s so Ktuvit finishes preparing the file, and fail cleanly instead of saving an error page as a subtitle."
+  "changelog": "Encoding fix: detect subtitle encoding instead of always assuming Windows-Hebrew (no more garbled UTF-8 subs). Ktuvit login now retries so a transient failure isn't cached and silently breaking downloads."
 }
