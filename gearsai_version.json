@@ -1,6 +1,6 @@
 {
-  "version": "1.0.14",
+  "version": "1.0.15",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "The AI progress bar now shows the actual steps: checking the community pool, which English subtitle was chosen and its match% to your file, translating (with model + line count), re-timing from the pool, and sharing back. Concise, step-by-step feedback."
+  "changelog": "Progress now shows the TMDb cast + character/gender steps, and the LIVE model quality tier (★ = best, 2.5 Flash) so you see if it ever drops to a weaker model. Fallback models reordered best-first so a forced downgrade always steps to the next-best model, never straight to the weakest. Key rotation keeps the whole translation on the best model until every key's quota is spent."
 }
