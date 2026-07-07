@@ -1,6 +1,6 @@
 {
-  "version": "1.0.12",
+  "version": "1.0.13",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Translation quality: TMDb cast + per-actor gender is now fed to the AI (it was built but never connected), so Hebrew gender forms are more accurate. Works alongside the existing dialogue-based gender analysis. Fully fail-open - no cast just falls back to inferring from dialogue."
+  "changelog": "AI translation progress now shows in DarkSubs' own native progress bar. Community-pool subs are re-timed onto your exact release when they were translated for a different one (free, no re-translation). Added a Gemini settings section: personal API key, QR-code key entry from your phone, and extra keys for rotation."
 }
