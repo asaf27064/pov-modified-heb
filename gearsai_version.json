@@ -1,6 +1,6 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Prefer text (.srt) subtitles over image-based VobSub (.idx/.sup) so subs render crisp with your Kodi font instead of a blurry baked-in one."
+  "changelog": "Ktuvit reliability: guard error/quota responses (no more phantom 'downloaded' that never applied), back off ~0.8s so Ktuvit finishes preparing the file, and fail cleanly instead of saving an error page as a subtitle."
 }
