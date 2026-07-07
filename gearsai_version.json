@@ -1,6 +1,6 @@
 {
-  "version": "1.0.6",
+  "version": "1.0.7",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Subtitle window now shows ALL results sorted by match% (nothing hidden, including VobSub). Auto-download still prefers a real text (.srt) subtitle over image-based VobSub/PGS even when the image one matches better."
+  "changelog": "Auto-download now behaves exactly like DarkSubs (picks the best match) except it prefers a text .srt when the top pick is an image-based VobSub/PGS sub. Tightened the image detection so normal titles like 'The Superman' are no longer mistaken for image subs."
 }
