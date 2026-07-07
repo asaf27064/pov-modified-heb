@@ -1,6 +1,6 @@
 {
-  "version": "1.0.11",
+  "version": "1.0.12",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Code cleanup: removed unused leftover modules from the DarkSubs fork (kodirdil, pair, progress_overlay, resync, selfupdate, tmdb) and archived old provider copies. No behavior change - all were dead code with zero references."
+  "changelog": "Translation quality: TMDb cast + per-actor gender is now fed to the AI (it was built but never connected), so Hebrew gender forms are more accurate. Works alongside the existing dialogue-based gender analysis. Fully fail-open - no cast just falls back to inferring from dialogue."
 }
