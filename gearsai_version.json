@@ -1,6 +1,6 @@
 {
-    "version": "0.9.2",
-    "addon_id": "service.subtitles.gearsai",
-    "name": "MasterKodi AI Subs",
-    "changelog": "Cleaner subtitle rows: removed emoji that rendered as boxes in Kodi's dialog. Rate-limit fix: lowered parallel chunks 4->2 so full-episode translation stays under the shared free-tier per-minute limit ('too many requests')."
+  "version": "1.0.0",
+  "addon_id": "service.subtitles.gearsai",
+  "name": "MasterKodi AI Subs",
+  "changelog": "MasterKodi AI Subs is now a full fork of DarkSubs (Ktuvit/Wizdom/OpenSubtitles/Telegram + the subtitle window) with an added 'AI translate with Gemini' option. Original DarkSubs disabled to avoid duplicate auto-download."
 }
