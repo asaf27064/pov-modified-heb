@@ -1,6 +1,6 @@
 {
-  "version": "1.0.15",
+  "version": "1.0.16",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Progress now shows the TMDb cast + character/gender steps, and the LIVE model quality tier (★ = best, 2.5 Flash) so you see if it ever drops to a weaker model. Fallback models reordered best-first so a forced downgrade always steps to the next-best model, never straight to the weakest. Key rotation keeps the whole translation on the best model until every key's quota is spent."
+  "changelog": "Redesigned the subtitle window: color-coded match% (green/gold/orange by quality), clear status tags ([נוכחית]/[ירדה]), centered header, and colored download/translation status. Live AI translation steps now also appear in the window header. Cleaner MasterKodi branding."
 }
