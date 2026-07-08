@@ -1,6 +1,6 @@
 {
-    "version": "2.1.1",
+    "version": "2.1.2",
     "compatible_gears": "2.2.2",
     "min_gears": "2.2.2",
-    "changelog": "Fixed embedded-Hebrew detection in the sources window: the original community taglines lists went offline (404), so no source was marked as having built-in Hebrew subs. The lists now live on the MasterKodi community server and grow automatically as users play files with embedded Hebrew."
+    "changelog": "Embedded-Hebrew indicator in the sources window now refreshes quickly (was cached for 24h), so releases you play with built-in Hebrew show up as 'מוטמע' much sooner."
 }

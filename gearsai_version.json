@@ -1,6 +1,6 @@
 {
-  "version": "1.0.28",
+  "version": "1.0.29",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Embedded Hebrew now trains the source-window indicator: when Kodi confirms a real embedded Hebrew track while you play, MasterKodi shares that release name (movie/series separated) with the community list, so next time it shows as 'מוטמע' in the Gears sources window - before you even play. Toggle under General settings. Only the release name is shared, nothing personal."
+  "changelog": "Ktuvit results were sometimes missing because logging into Ktuvit took ~15s and blew the subtitle-search time limit (so its results arrived too late). Ktuvit login is now warmed in the background at startup and kept fresh, so its subtitles show up in time."
 }
