@@ -1,6 +1,6 @@
 {
-    "version": "2.1.5",
-    "compatible_gears": "2.2.2",
-    "min_gears": "2.2.2",
-    "changelog": "Sources-window Ktuvit search refined: only calls TMDb to resolve the English title when the title isn't already English, matching All Subs Plus's efficient logic."
+    "version": "2.2.0",
+    "compatible_gears": "2.3.1",
+    "min_gears": "2.3.1",
+    "changelog": "Rebased the Hebrew build onto upstream Gears 2.3.1 (was 2.2.2) - you get all the upstream improvements from 2.2.3-2.3.1. All Hebrew patches carried over cleanly (the files we patch were unchanged upstream), including the fixed sources-window Ktuvit/OpenSubtitles search."
 }
