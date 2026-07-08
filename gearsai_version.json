@@ -1,6 +1,6 @@
 {
-  "version": "1.0.26",
+  "version": "1.0.27",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Three fixes: (1) the AI no longer drops to a weaker model on temporary rate-limit bursts - it verifies real quota exhaustion first, and the proxy now rotates all its keys on per-minute limits too; (2) the progress dialog no longer vanishes mid-translation on long movies (idle-based timeout instead of a hard 2-minute cap); (3) a remembered low-match English source no longer starves a much better one - the best source wins when it's >10% better."
+  "changelog": "Auto AI translation now ASKS for confirmation before starting (toggle: 'בקש אישור לפני תרגום AI אוטומטי'; manual picks and instant pool hits don't ask). Fixed the translation dying silently on long chunks (proxy timeouts are now retried, and a ticking clock keeps the progress dialog alive). subdl gets a longer timeout. Settings rebranded from DarkSubs to MasterKodi."
 }
