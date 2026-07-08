@@ -1,6 +1,6 @@
 {
-  "version": "1.0.27",
+  "version": "1.0.28",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Auto AI translation now ASKS for confirmation before starting (toggle: 'בקש אישור לפני תרגום AI אוטומטי'; manual picks and instant pool hits don't ask). Fixed the translation dying silently on long chunks (proxy timeouts are now retried, and a ticking clock keeps the progress dialog alive). subdl gets a longer timeout. Settings rebranded from DarkSubs to MasterKodi."
+  "changelog": "Embedded Hebrew now trains the source-window indicator: when Kodi confirms a real embedded Hebrew track while you play, MasterKodi shares that release name (movie/series separated) with the community list, so next time it shows as 'מוטמע' in the Gears sources window - before you even play. Toggle under General settings. Only the release name is shared, nothing personal."
 }
