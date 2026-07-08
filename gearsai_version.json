@@ -1,6 +1,6 @@
 {
-  "version": "1.0.18",
+  "version": "1.0.19",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Window fixes: duplicate results are de-duplicated (same release listed twice), only one row is tagged as the current subtitle, and the close button no longer covers the count label. New: clear notifications showing where the Hebrew came from - pulled from the community pool (with sync%), re-timed to your release, or freshly translated with Gemini (and whether it was shared back)."
+  "changelog": "The subtitle window now tags translated rows with where the Hebrew came from: [תורגם לעברית · מאגר קהילתי] / [תורגם לעברית · Gemini AI] / Google. The origin is recorded next to each translated file, so it survives restarts."
 }
