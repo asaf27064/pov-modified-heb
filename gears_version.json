@@ -1,6 +1,6 @@
 {
-    "version": "2.1.3",
+    "version": "2.1.4",
     "compatible_gears": "2.2.2",
     "min_gears": "2.2.2",
-    "changelog": "Sources-window Hebrew search fixed: OpenSubtitles now uses the current working API (the old one was shut down) and finds Hebrew subs again; Ktuvit login is cached so it stops timing out. Wizdom kept (currently down on their side)."
+    "changelog": "Ktuvit now shows in the sources window: it was searching by the Hebrew show name (which Ktuvit doesn't index) and finding nothing. It now resolves the English/original name via TMDb and searches by that, matching what Ktuvit expects."
 }
