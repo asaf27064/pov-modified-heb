@@ -1,6 +1,6 @@
 {
-  "version": "1.0.20",
+  "version": "1.0.21",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Window redesign: subtitle names now fit without scrolling - the repeated show-title prefix is stripped (S01E01.1080p.WEB... instead of The.Show.Name.S01E01...), sources became compact colored badges (OS/KT/WZ/SD...), release names are clean white for easy scanning, and languages show in Hebrew."
+  "changelog": "Better Hebrew gender: the character/gender map is now remembered per series+season (consistent across episodes, faster), translation chunks are larger with more cross-chunk context (fewer boundary gender errors), and SDH subtitles (with speaker tags) are preferred as the translation source. NEW subtitle window design: two-line rows with the FULL release name always visible (no scrolling), modern dark panel. Don't like it? Settings > 'חלון קלאסי' brings the old one back."
 }
