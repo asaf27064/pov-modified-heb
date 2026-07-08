@@ -1,6 +1,6 @@
 {
-  "version": "1.0.22",
+  "version": "1.0.23",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Pool fix: translations are now stored under the release name of the ENGLISH SUBTITLE that was translated (the timing source), not the video file that happened to be playing - so sync-matching for the next user is accurate."
+  "changelog": "The subtitle window now shows an [SDH] tag on hearing-impaired subtitles (the ones with speaker tags). These give the AI noticeably better Hebrew gender, and the auto-translate already prefers them - now you can see which ones they are."
 }
