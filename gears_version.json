@@ -1,6 +1,6 @@
 {
-    "version": "2.1.4",
+    "version": "2.1.5",
     "compatible_gears": "2.2.2",
     "min_gears": "2.2.2",
-    "changelog": "Ktuvit now shows in the sources window: it was searching by the Hebrew show name (which Ktuvit doesn't index) and finding nothing. It now resolves the English/original name via TMDb and searches by that, matching what Ktuvit expects."
+    "changelog": "Sources-window Ktuvit search refined: only calls TMDb to resolve the English title when the title isn't already English, matching All Subs Plus's efficient logic."
 }

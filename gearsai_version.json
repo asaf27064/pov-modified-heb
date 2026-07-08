@@ -1,6 +1,6 @@
 {
-  "version": "1.0.29",
+  "version": "1.0.30",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Ktuvit results were sometimes missing because logging into Ktuvit took ~15s and blew the subtitle-search time limit (so its results arrived too late). Ktuvit login is now warmed in the background at startup and kept fresh, so its subtitles show up in time."
+  "changelog": "Ktuvit search made bulletproof: if the show's title isn't English (Hebrew metadata), it resolves the English name via TMDb before searching Ktuvit - the same robust approach All Subs Plus uses. (Wizdom/OpenSubtitles already search by IMDb ID, so they were fine.)"
 }
