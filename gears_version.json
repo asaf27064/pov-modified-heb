@@ -1,6 +1,6 @@
 {
-    "version": "2.2.0",
+    "version": "2.2.1",
     "compatible_gears": "2.3.1",
     "min_gears": "2.3.1",
-    "changelog": "Rebased the Hebrew build onto upstream Gears 2.3.1 (was 2.2.2) - you get all the upstream improvements from 2.2.3-2.3.1. All Hebrew patches carried over cleanly (the files we patch were unchanged upstream), including the fixed sources-window Ktuvit/OpenSubtitles search."
+    "changelog": "Sources window now correctly shows Ktuvit: when a release exists on both Ktuvit and OpenSubtitles, it's attributed to Ktuvit (was randomly showing whichever site's search finished first)."
 }
