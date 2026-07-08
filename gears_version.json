@@ -1,6 +1,6 @@
 {
-    "version": "2.2.3",
+    "version": "2.2.4",
     "compatible_gears": "2.3.1",
     "min_gears": "2.3.1",
-    "changelog": "Embedded-Hebrew coverage restored: the community list is now seeded with ~17,000 known embedded-Hebrew releases (movies + series), so the 'מוטמע' indicator appears again for most content - like it used to. Matching is indexed so it stays instant."
+    "changelog": "Embedded-Hebrew indicator now shows confidence: an exact match to a known release shows 'מוטמע', while a match based on the same show+quality (an educated guess) shows 'מוטמע · משוער' - so you know which is certain."
 }
