@@ -1,6 +1,6 @@
 {
-    "version": "2.2.1",
+    "version": "2.2.2",
     "compatible_gears": "2.3.1",
     "min_gears": "2.3.1",
-    "changelog": "Sources window now correctly shows Ktuvit: when a release exists on both Ktuvit and OpenSubtitles, it's attributed to Ktuvit (was randomly showing whichever site's search finished first)."
+    "changelog": "Embedded-Hebrew indicator now covers more releases: a known season pack (or episode) with built-in Hebrew now also flags other episodes of the same show/quality, so the indicator appears more often as the community list grows."
 }
