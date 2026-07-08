@@ -1,6 +1,6 @@
 {
-  "version": "1.0.23",
+  "version": "1.0.24",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "The subtitle window now shows an [SDH] tag on hearing-impaired subtitles (the ones with speaker tags). These give the AI noticeably better Hebrew gender, and the auto-translate already prefers them - now you can see which ones they are."
+  "changelog": "Image-based subtitles (VobSub idx/PGS sup in zip) are now labelled in the window - 'כתובית תמונה · פונט קבוע ומטושטש' - so it's clear why the auto-pick skips them in favor of a real text subtitle."
 }
