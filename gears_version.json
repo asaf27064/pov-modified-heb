@@ -1,6 +1,6 @@
 {
-    "version": "2.2.4",
+    "version": "2.2.5",
     "compatible_gears": "2.3.1",
     "min_gears": "2.3.1",
-    "changelog": "Embedded-Hebrew indicator now shows confidence: an exact match to a known release shows 'מוטמע', while a match based on the same show+quality (an educated guess) shows 'מוטמע · משוער' - so you know which is certain."
+    "changelog": "Embedded-Hebrew indicator now uses EXACT matching only against the ~17,000 known-release list (removed the estimated/guess matching entirely). No 'משוער' - only confirmed embedded releases are flagged."
 }
