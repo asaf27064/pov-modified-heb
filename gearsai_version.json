@@ -1,6 +1,6 @@
 {
-  "version": "1.0.24",
+  "version": "1.0.25",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Image-based subtitles (VobSub idx/PGS sup in zip) are now labelled in the window - 'כתובית תמונה · פונט קבוע ומטושטש' - so it's clear why the auto-pick skips them in favor of a real text subtitle."
+  "changelog": "Self-healing fix: if the addon's working folders (Cached_subs/trans_subs) were deleted mid-session (cache clean, manual delete), every subtitle download crashed silently - no sub placed and auto-translate never ran. The folders are now recreated automatically on every download."
 }
