@@ -1,6 +1,6 @@
 {
-  "version": "1.0.19",
+  "version": "1.0.20",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "The subtitle window now tags translated rows with where the Hebrew came from: [תורגם לעברית · מאגר קהילתי] / [תורגם לעברית · Gemini AI] / Google. The origin is recorded next to each translated file, so it survives restarts."
+  "changelog": "Window redesign: subtitle names now fit without scrolling - the repeated show-title prefix is stripped (S01E01.1080p.WEB... instead of The.Show.Name.S01E01...), sources became compact colored badges (OS/KT/WZ/SD...), release names are clean white for easy scanning, and languages show in Hebrew."
 }
