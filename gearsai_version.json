@@ -1,6 +1,6 @@
 {
-  "version": "1.0.21",
+  "version": "1.0.22",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Better Hebrew gender: the character/gender map is now remembered per series+season (consistent across episodes, faster), translation chunks are larger with more cross-chunk context (fewer boundary gender errors), and SDH subtitles (with speaker tags) are preferred as the translation source. NEW subtitle window design: two-line rows with the FULL release name always visible (no scrolling), modern dark panel. Don't like it? Settings > 'חלון קלאסי' brings the old one back."
+  "changelog": "Pool fix: translations are now stored under the release name of the ENGLISH SUBTITLE that was translated (the timing source), not the video file that happened to be playing - so sync-matching for the next user is accurate."
 }
