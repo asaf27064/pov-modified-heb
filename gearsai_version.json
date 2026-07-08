@@ -1,6 +1,6 @@
 {
-  "version": "1.0.16",
+  "version": "1.0.17",
   "addon_id": "service.subtitles.gearsai",
   "name": "MasterKodi AI Subs",
-  "changelog": "Redesigned the subtitle window: color-coded match% (green/gold/orange by quality), clear status tags ([נוכחית]/[ירדה]), centered header, and colored download/translation status. Live AI translation steps now also appear in the window header. Cleaner MasterKodi branding."
+  "changelog": "Full code audit: fixed a crash when a subtitle's encoding can't be detected (machine translation died on odd files), removed leftover dead code from the subtitle window, replaced glyphs that can render as boxes on some fonts, and the manual AI translate popup now also shows the live model quality tier."
 }
