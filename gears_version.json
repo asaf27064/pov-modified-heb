@@ -1,6 +1,6 @@
 {
-    "version": "2.2.2",
+    "version": "2.2.3",
     "compatible_gears": "2.3.1",
     "min_gears": "2.3.1",
-    "changelog": "Embedded-Hebrew indicator now covers more releases: a known season pack (or episode) with built-in Hebrew now also flags other episodes of the same show/quality, so the indicator appears more often as the community list grows."
+    "changelog": "Embedded-Hebrew coverage restored: the community list is now seeded with ~17,000 known embedded-Hebrew releases (movies + series), so the 'מוטמע' indicator appears again for most content - like it used to. Matching is indexed so it stays instant."
 }
