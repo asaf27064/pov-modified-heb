@@ -1,5 +1,5 @@
 {
-    "version": "1.0.7",
-    "changelog": "VideoOSD.xml self-destruct timer: when the toolbar is opened via Enter/center-button, Kodi doesn't fire onfocus for the initial default control, so no alarm was ever set and the bar lingered forever. Adds an <onload> AlarmClock guarded by !System.HasAlarm so it doesn't stomp on focus-driven alarms. Pair with the 1.0.6 Includes_Actions.xml gate-removal — together they cover all 5 OSD-open paths (spacebar, mouse hover, arrow keys, Enter-to-open, Enter-on-button).",
-    "skin_version": "3.x"
+    "version": "1.0.8",
+    "changelog": "Re-derived for Arctic Fuse 3.2.13. Dropped 3 now-obsolete patches (VideoOSD/Includes_Actions OSD-autoclose - fixed upstream in 3.2.13; Includes_Font - 3.2.13 has more title fonts). Font.xml re-merged with the Hebrew (Rubik)/(Noto) fontsets onto 3.2.13. Custom_1147 keeps the manual-subtitle button, now opening service.subtitles.gearsai (MasterKodi AI Subs) instead of All_Subs. Includes_Info adds an 18px gap so a long Hebrew plot doesn't touch the ratings row. Kept Hebrew fonts + he_il strings.",
+    "skin_version": "3.2.13"
 }
