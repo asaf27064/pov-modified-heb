@@ -1,6 +1,6 @@
 {
-    "version": "2.2.5",
+    "version": "2.2.6",
     "compatible_gears": "2.3.1",
     "min_gears": "2.3.1",
-    "changelog": "Embedded-Hebrew indicator now uses EXACT matching only against the ~17,000 known-release list (removed the estimated/guess matching entirely). No 'משוער' - only confirmed embedded releases are flagged."
+    "changelog": "TMDb metadata language now defaults to Hebrew (was English), so a big Gears update no longer reverts your summaries to English. Plus: the Hebrew-files installer now retries the download on transient network errors (Android/WiFi), so the Hebrew step no longer fails on a single hiccup."
 }
