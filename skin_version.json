@@ -1,5 +1,5 @@
 {
-    "version": "1.0.8",
-    "changelog": "Re-derived for Arctic Fuse 3.2.13. Dropped 3 now-obsolete patches (VideoOSD/Includes_Actions OSD-autoclose - fixed upstream in 3.2.13; Includes_Font - 3.2.13 has more title fonts). Font.xml re-merged with the Hebrew (Rubik)/(Noto) fontsets onto 3.2.13. Custom_1147 keeps the manual-subtitle button, now opening service.subtitles.gearsai (MasterKodi AI Subs) instead of All_Subs. Includes_Info adds an 18px gap so a long Hebrew plot doesn't touch the ratings row. Kept Hebrew fonts + he_il strings.",
+    "version": "1.0.9",
+    "changelog": "New standalone Hebrew-subtitles OSD button (id 6010) in VideoOSD, like Estuary's: a dedicated circle button (closed-captioning icon + gold 'עברית' label) between the subtitle-settings and video-settings buttons that opens the MasterKodi AI Subs window directly (RunScript service.subtitles.gearsai,sub_window). The in-list button in Custom_1147 (id 6009) is kept as well. VideoOSD.xml is therefore overlaid again (it was dropped in 1.0.8 as 3.2.13-native).",
     "skin_version": "3.2.13"
 }
