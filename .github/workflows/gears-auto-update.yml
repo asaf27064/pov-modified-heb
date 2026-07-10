@@ -160,7 +160,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `Gears ${upstream} — Hebrew files need updating`,
-              body: `## Gears Update Requires Manual Review\n\n**Upstream:** ${upstream}\n**Current compatible:** ${compatible}\n\n**Changed files:** ${('${{ steps.compare.outputs.changed_files }}')}\n\n### Steps:\n1. Download: ${zipUrl}\n2. Use masterkodi-il-builder skill in Claude (hebrew-mod workflow)\n3. Re-apply Hebrew patches onto the new files, test, push\n4. Refresh gears_baseline/ from clean ${upstream}, set compatible_gears=${upstream}\n5. Close this issue\n\n### Diffs (baseline vs ${upstream}):\n${diffContent}`,
+              body: `## Gears Update Requires Manual Review\n\n**Upstream:** ${upstream}\n**Current compatible:** ${compatible}\n\n**Changed files:** ${('${{ steps.compare.outputs.changed_files }}')}\n\n### Steps (new manifest model):\n1. Download clean upstream: ${zipUrl}\n2. Use masterkodi-il-builder skill in Claude (hebrew-mod workflow)\n3. Re-apply the Hebrew overlay onto the new files, test\n4. Copy the MERGED gears into **MasterKodi-IL-Build/addons/plugin.video.gears** (bump version.txt), commit + push — CI ships it to every user via the manifest\n5. Refresh gears_baseline/ here + set compatible_gears=${upstream}\n6. Close this issue\n\n### Diffs (baseline vs ${upstream}):\n${diffContent}`,
               labels: ['upstream-update', 'manual-review']
             });
 
