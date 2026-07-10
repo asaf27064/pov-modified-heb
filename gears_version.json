@@ -1,6 +1,6 @@
 {
-    "version": "2.2.6",
+    "version": "2.2.7",
     "compatible_gears": "2.3.1",
     "min_gears": "2.3.1",
-    "changelog": "TMDb metadata language now defaults to Hebrew (was English), so a big Gears update no longer reverts your summaries to English. Plus: the Hebrew-files installer now retries the download on transient network errors (Android/WiFi), so the Hebrew step no longer fails on a single hiccup."
+    "changelog": "Source search now shows CACHED results only by default. External cache-check is on and the automatic 'rescrape without cache' pass is off, so the list is limited to instantly-playable (cached) sources instead of a mix of cached and uncached. Uncached sources are still reachable via the 'Show Uncached Only' button when you need them."
 }
