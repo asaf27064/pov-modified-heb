@@ -1,5 +1,5 @@
 {
-    "version": "1.0.9",
-    "changelog": "New standalone Hebrew-subtitles OSD button (id 6010) in VideoOSD, like Estuary's: a dedicated circle button (closed-captioning icon + gold 'עברית' label) between the subtitle-settings and video-settings buttons that opens the MasterKodi AI Subs window directly (RunScript service.subtitles.gearsai,sub_window). The in-list button in Custom_1147 (id 6009) is kept as well. VideoOSD.xml is therefore overlaid again (it was dropped in 1.0.8 as 3.2.13-native).",
+    "version": "1.0.10",
+    "changelog": "Reverted the standalone OSD Hebrew-subtitles button in AF3 (1.0.9) - the icon overlay and label rendered stacked. VideoOSD.xml is no longer overlaid (back to 3.2.13 native). The in-list gearsai button in Custom_1147 (id 6009) remains.",
     "skin_version": "3.2.13"
 }
